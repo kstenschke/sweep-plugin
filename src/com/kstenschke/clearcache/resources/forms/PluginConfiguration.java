@@ -59,9 +59,9 @@ public class PluginConfiguration {
         Project project = projects[0];
 
 		if( project != null ) {
-			descriptor.setIsTreeRootVisible(true);
 			VirtualFile baseDir  = project.getBaseDir();
 			descriptor.setRoots(baseDir);
+//			descriptor.setIsTreeRootVisible(true);
 
 			FileSystemTree tree = treeFactory.createFileSystemTree(project, descriptor);
 

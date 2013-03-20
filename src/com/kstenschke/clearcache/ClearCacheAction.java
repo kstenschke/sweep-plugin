@@ -48,7 +48,7 @@ public class ClearCacheAction extends AnAction {
 
 			Balloon.Position pos = Balloon.Position.below;
 			String balloonText   = "Removed " + amountDeleted + " files and folders";
-			BalloonBuilder builder = JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(balloonText, null, Gray._245, null);
+			BalloonBuilder builder = JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(balloonText, null, new Color(245, 245, 245), null);
 			Balloon balloon = builder.createBalloon();
 			balloon.setAnimationEnabled(true);
 

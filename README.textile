@@ -1,6 +1,6 @@
 h1. ClearCache Plugin
 
-Source code of the intellij IDEA "ClearCache plugin": http://plugins.intellij.net/plugin/index?pr=&pluginId=7196
+Source code of the intellij IDEA "ClearCache plugin": http://plugins.intellij.net/plugin/index?pr=&pluginId=7197
 This is a plugin for the various intellij IDEs, working in IDEA, PhpStorm, AppCode, etc.
 
 
