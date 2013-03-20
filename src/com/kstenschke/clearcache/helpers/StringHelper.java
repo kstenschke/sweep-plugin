@@ -19,25 +19,6 @@ package com.kstenschke.clearcache.helpers;
 public class StringHelper {
 
 	/**
-	 * @param string		String to analyze
-	 * @param toReplace		String to be replaced
-	 * @param replacement	Replacement string
-	 * @return				String with last occurrence of given sub string replaced
-	 */
-	public static String replaceLast(String string, String toReplace, String replacement) {
-		int pos = string.lastIndexOf(toReplace);
-		if (pos > -1) {
-			return string.substring(0, pos)
-					+ replacement
-					+ string.substring(pos + toReplace.length(), string.length());
-		} else {
-			return string;
-		}
-	}
-
-
-
-	/**
 	 * Remove given char if it pre-fixes the given string
 	 *
 	 * @param	sourceStr
@@ -45,7 +26,7 @@ public class StringHelper {
 	 * @param	prefixMustExist	true: if prefix isn't the given one: return null / otherwise return as is
 	 * @return	String
 	 */
-	public static String removePrefixChar(String sourceStr, String prefixChar, Boolean prefixMustExist) {
+	private static String removePrefixChar(String sourceStr, String prefixChar, Boolean prefixMustExist) {
 		if( sourceStr != null && sourceStr.indexOf(prefixChar)  == 0 ) {
 			return sourceStr.substring(1);
 		}
@@ -53,7 +34,7 @@ public class StringHelper {
 		return prefixMustExist ? null : sourceStr;
 	}
 
-	public static String removePrefixChar(String sourceStr, String prefixChar) {
+	private static String removePrefixChar(String sourceStr, String prefixChar) {
 		return removePrefixChar(sourceStr, prefixChar, true);
 	}
 
@@ -67,7 +48,7 @@ public class StringHelper {
 	 * @param	trailMustExist	true: if trail isn't the given one: return null / otherwise return as is
 	 * @return	String
 	 */
-	public static String removePostfixChar(String sourceStr, String trailChar, Boolean trailMustExist) {
+	private static String removePostfixChar(String sourceStr, String trailChar, Boolean trailMustExist) {
 		if( sourceStr != null && sourceStr.lastIndexOf(trailChar)  == sourceStr.length() -1 ) {
 			return sourceStr.substring(0, sourceStr.length() -1 );
 		}
@@ -75,7 +56,7 @@ public class StringHelper {
 		return trailMustExist ? null : sourceStr;
 	}
 
-	public static String removePostfixChar(String sourceStr, String trailChar) {
+	private static String removePostfixChar(String sourceStr, String trailChar) {
 		return removePostfixChar(sourceStr, trailChar, true);
 	}
 

@@ -36,7 +36,7 @@ import java.util.Arrays;
 public class PluginConfiguration {
 
     public JPanel rootPanel;
-    public JTree projectTree;
+    private JTree projectTree;
 
 
     /**

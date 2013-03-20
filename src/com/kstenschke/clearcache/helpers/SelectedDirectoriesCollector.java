@@ -98,12 +98,12 @@ public class SelectedDirectoriesCollector {
 
 
 
-	private static boolean isFileHidden(VirtualFile virtualFile) {
-		if (virtualFile == null || !virtualFile.isValid()) return false;
-		if (!virtualFile.isInLocalFileSystem()) return false;
-
-		File file = new File(virtualFile.getPath().replace('/', File.separatorChar));
-
-		return file.getParent() != null && file.isHidden(); // Under Windows logical driver files (e.g C:\) are hidden.
-	}
+//	private static boolean isFileHidden(VirtualFile virtualFile) {
+//		if (virtualFile == null || !virtualFile.isValid()) return false;
+//		if (!virtualFile.isInLocalFileSystem()) return false;
+//
+//		File file = new File(virtualFile.getPath().replace('/', File.separatorChar));
+//
+//		return file.getParent() != null && file.isHidden(); // Under Windows logical driver files (e.g C:\) are hidden.
+//	}
 }
