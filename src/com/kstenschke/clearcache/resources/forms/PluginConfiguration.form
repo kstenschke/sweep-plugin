@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="com.kstenschke.clearcache.resources.forms.PluginConfiguration">
+  <grid id="27dc6" binding="rootPanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+    <constraints>
+      <xy x="20" y="20" width="796" height="434"/>
+    </constraints>
+    <properties>
+      <preferredSize width="200" height="177"/>
+      <requestFocusEnabled value="true"/>
+    </properties>
+    <border type="none"/>
+    <children/>
+  </grid>
+  <inspectionSuppressions>
+    <suppress inspection="NoLabelFor" id="5a62a"/>
+    <suppress inspection="NoLabelFor" id="d2285"/>
+    <suppress inspection="NoLabelFor" id="2ce97"/>
+  </inspectionSuppressions>
+</form>
