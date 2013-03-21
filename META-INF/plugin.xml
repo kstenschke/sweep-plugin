@@ -16,8 +16,9 @@
 <idea-plugin version="2">
   <name>Clear Cache</name>
   <description><![CDATA[
-    Adds a "Clear Cache" button to the main toolbar: when clicked it will recursively delete all files/folders inside the cache folder(s).
-    The cache folder(s) are configured in the project settings.
+    The plugin adds a "Clear Cache" button to the main toolbar.<br/>
+    One or more cache folders are configurable in the project settings.<br/>
+    When clicking the button, all files/folders inside the cache will be deleted recursively.
     <br/>
     <br/>Please note: This plugin is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     <br/>
@@ -28,7 +29,7 @@
 
   <change-notes><![CDATA[
     1.0.1<ul>
-        <li>Made removal of hidden folders and files from cache optional</li>
+        <li>Made removal of directories and hidden folders / files optional</li>
     </ul>
     1.0.0<ul>
         <li>Initial release</li>

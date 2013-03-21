@@ -19,7 +19,6 @@ package com.kstenschke.clearcache.helpers;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.kstenschke.clearcache.ClearCachePreferences;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -25,7 +25,6 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import javax.swing.tree.TreePath;
 
 public class ClearCacheSettingsComponent implements ProjectComponent, Configurable {
 

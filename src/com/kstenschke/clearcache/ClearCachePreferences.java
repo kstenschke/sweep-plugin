@@ -20,7 +20,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import org.jetbrains.annotations.NonNls;
 import com.intellij.ide.util.PropertiesComponent;
-import com.kstenschke.clearcache.resources.forms.PluginConfiguration;
 
 /**
  * Utility functions for preferences handling
