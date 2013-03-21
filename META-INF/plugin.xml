@@ -27,12 +27,15 @@
   <idea-version since-build="107.105"/>
 
   <change-notes><![CDATA[
+    1.0.1<ul>
+        <li>Made removal of hidden folders and files from cache optional</li>
+    </ul>
     1.0.0<ul>
         <li>Initial release</li>
     </ul>
   ]]></change-notes>
 
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 
   <application-components></application-components>
 

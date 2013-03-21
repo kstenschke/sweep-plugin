@@ -36,7 +36,11 @@ import java.util.Arrays;
 public class PluginConfiguration {
 
     public JPanel rootPanel;
-    private JTree projectTree;
+	private JPanel TopPanel;
+	private JCheckBox filesCheckBox;
+	private JCheckBox directoriesCheckBox;
+	private JCheckBox hiddenFilesAndDirectoriesCheckBox;
+	private JTree projectTree;
 
 
     /**

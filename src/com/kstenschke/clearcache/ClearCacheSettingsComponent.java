@@ -50,7 +50,7 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 
     @Nls
     public String getDisplayName() {
-        return "Clear Cache - Folders";
+        return "Clear Cache";
     }
 
 
@@ -140,7 +140,7 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 
     @NotNull
     public String getComponentName() {
-        return "Clear Cache Settings";
+        return "Clear Cache";
     }
 
 
