@@ -98,6 +98,9 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
                 ClearCachePreferences.savePaths(paths);
             }
 
+			ClearCachePreferences.saveDeleteDirectories( settingsPanel.isSelectedDeleteDirectories() );
+			ClearCachePreferences.saveDeleteHidden( settingsPanel.isSelectedDeleteHidden() );
+
             applyGlobalSettings();
         }
     }

@@ -17,8 +17,9 @@
   <name>Clear Cache</name>
   <description><![CDATA[
     The plugin adds a "Clear Cache" button to the main toolbar.<br/>
-    One or more cache folders are configurable in the project settings.<br/>
-    When clicking the button, all files/folders inside the cache will be deleted recursively.
+    One or more cache directories are configurable in the project settings.<br/>
+    When clicking the button, all files inside the cache directories will be deleted recursively.<br/>
+    The plugin settings allow to delete also cached directories and hidden files and directories.
     <br/>
     <br/>Please note: This plugin is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     <br/>
@@ -29,7 +30,9 @@
 
   <change-notes><![CDATA[
     1.0.1<ul>
-        <li>Made removal of directories and hidden folders / files optional</li>
+        <li>Made removal of directories and hidden directories and files optional</li>
+        <li>Refined results balloon to display amounts of deleted directories and files separately</li>
+        <li>Added instruction text to plugin configuration form</li>
     </ul>
     1.0.0<ul>
         <li>Initial release</li>

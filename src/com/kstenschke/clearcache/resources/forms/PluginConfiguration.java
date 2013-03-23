@@ -56,6 +56,11 @@ public class PluginConfiguration {
      * Initialize the form: render project tree, select nodes from project preference
      */
     private void InitForm() {
+			// Init checkbox options' states
+		directoriesCheckBox.setSelected( ClearCachePreferences.getDeleteDirectories() );
+		hiddenFilesAndDirectoriesCheckBox.setSelected( ClearCachePreferences.getDeleteHidden() );
+
+			// Add project files tree, select directories from user's project preference
         FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
         FileChooserDescriptor descriptor =  new FileChooserDescriptor(false, true, false, false,false,false);
 
@@ -112,8 +117,22 @@ public class PluginConfiguration {
      * @return Boolean
      */
     public boolean isModified() {
-        return ! ( getData().equals( ClearCachePreferences.getPaths() ) );
+        return ! (
+				getData().equals( ClearCachePreferences.getPaths() )
+			&&	isSelectedDeleteDirectories()	== ClearCachePreferences.getDeleteDirectories()
+			&&	isSelectedDeleteHidden()		== ClearCachePreferences.getDeleteHidden()
+		);
     }
+
+
+
+	public Boolean isSelectedDeleteDirectories() {
+		return directoriesCheckBox.isSelected();
+	}
+
+	public Boolean isSelectedDeleteHidden() {
+		return hiddenFilesAndDirectoriesCheckBox.isSelected();
+	}
 
 
 

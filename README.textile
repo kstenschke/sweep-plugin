@@ -15,7 +15,8 @@ h2. Description
 
 The plugin adds a "Clear Cache" button to the main toolbar.
 One or more cache folders are configurable in the project settings.
-When clicking the button, all files/folders inside the cache will be deleted recursively.
+When clicking the button, all files inside the cache directories will be deleted recursively.
+The plugin settings allow to delete also cached directories and hidden files and directories.
 
 
 

@@ -31,6 +31,12 @@ public class ClearCachePreferences {
     @NonNls
     private static final String PROPERTY_PATHS = "PluginClearCache.Paths";
 
+    @NonNls
+    private static final String PROPERTY_DELETE_DIRECTORIES = "PluginClearCache.DeleteDirectories";
+
+    @NonNls
+    private static final String PROPERTY_DELETE_HIDDEN = "PluginClearCache.DeleteHidden";
+
 
 
 	private static Project getOpenProject() {
@@ -60,6 +66,22 @@ public class ClearCachePreferences {
 		}
     }
 
+    public static void saveDeleteDirectories(Boolean delete) {
+		PropertiesComponent propertiesComponent = getPropertiesComponent();
+
+		if( propertiesComponent != null ) {
+			propertiesComponent.setValue(PROPERTY_DELETE_DIRECTORIES, delete? "1":"0");
+		}
+    }
+
+    public static void saveDeleteHidden(Boolean delete) {
+		PropertiesComponent propertiesComponent = getPropertiesComponent();
+
+		if( propertiesComponent != null ) {
+			propertiesComponent.setValue(PROPERTY_DELETE_HIDDEN, delete ? "1":"0");
+		}
+    }
+
 
 
     /**
@@ -76,6 +98,32 @@ public class ClearCachePreferences {
 		}
 
         return paths == null ? "" : paths;
+    }
+
+
+
+    public static Boolean getDeleteDirectories() {
+		PropertiesComponent propertiesComponent = getPropertiesComponent();
+		Boolean delete	= false;
+
+		if( propertiesComponent != null ) {
+			String pref	= propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES);
+			delete	= pref != null && pref.equals("1");
+		}
+
+        return delete;
+    }
+
+    public static Boolean getDeleteHidden() {
+		PropertiesComponent propertiesComponent = getPropertiesComponent();
+		Boolean delete	= false;
+
+		if( propertiesComponent != null ) {
+			String pref	= propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN);
+			delete	= pref != null && pref.equals("1");
+		}
+
+        return delete;
     }
 
 }

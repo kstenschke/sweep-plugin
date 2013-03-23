@@ -21,10 +21,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.BalloonBuilder;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
-import com.intellij.openapi.vfs.VirtualFile;
-import com.intellij.ui.Gray;
 import com.intellij.ui.awt.RelativePoint;
-import com.kstenschke.clearcache.helpers.SelectedDirectoriesCollector;
 import com.kstenschke.clearcache.helpers.StringHelper;
 
 import javax.swing.*;
@@ -44,10 +41,12 @@ public class ClearCacheAction extends AnAction {
 		if( cachePaths == null || cachePaths.length == 0 ) {
 			JOptionPane.showMessageDialog(null, "Please configure cache path(s) in the plugin preferences.");
 		} else {
-			Integer amountDeleted = this.clearFoldersContent(cachePaths);
+			Integer[] amountDeleted = this.clearFoldersContent(cachePaths);
 
 			Balloon.Position pos = Balloon.Position.below;
-			String balloonText   = "Removed " + amountDeleted + " files and folders";
+
+			String balloonText   = "Deleted " + amountDeleted[0] + " directories and " + amountDeleted[1] + " files";
+
 			BalloonBuilder builder = JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(balloonText, null, new Color(245, 245, 245), null);
 			Balloon balloon = builder.createBalloon();
 			balloon.setAnimationEnabled(true);
@@ -57,6 +56,7 @@ public class ClearCacheAction extends AnAction {
 			Integer	x= new Double(componentLocation.getX()).intValue() + eventComponent.getWidth() + 40;
 			Integer	y= new Double(componentLocation.getY()).intValue() + eventComponent.getHeight() + 42;
 			RelativePoint balloonPosition = new RelativePoint( new Point(x, y) );
+
 			balloon.show(balloonPosition, pos);
 		}
 	}
@@ -67,11 +67,15 @@ public class ClearCacheAction extends AnAction {
 	 * Remove all contents of given directories
 	 *
 	 * @param	paths
+	 * @return	Array of integers - amount of deleted 1. folders, 2. files
 	 */
-	private Integer clearFoldersContent(String[] paths) {
-		Integer amountDeleted = 0;
+	private Integer[] clearFoldersContent(String[] paths) {
+		Integer[] amountDeleted = {0, 0};
+
 		for(String curPath: paths) {
-			amountDeleted += deleteFolderContents(curPath, false);
+			Integer[] addAmountDeleted = deleteFolderContents(curPath, false);
+			amountDeleted[0]	+= addAmountDeleted[0];
+			amountDeleted[1]	+= addAmountDeleted[1];
 		}
 
 		return amountDeleted;
@@ -85,24 +89,27 @@ public class ClearCacheAction extends AnAction {
 	 *
 	 * @param	path
 	 * @param	removeFolderItself
-	 * @return	Amount of deleted files and folders
+	 * @return	Array of integers - amount of deleted 1. folders, 2. files
 	 */
-	private Integer deleteFolderContents(String path, Boolean removeFolderItself) {
-		Integer amountDeleted = 0;
+	private Integer[] deleteFolderContents(String path, Boolean removeFolderItself) {
+		Integer[] amountDeleted = {0, 0};
+
 		File folder = new File(path);
 		File[] files = folder.listFiles();
 
 		if(files != null) { //some JVMs return null for empty dirs
 			for(File curFile: files) {
 				if( curFile.isDirectory() ) {
-					amountDeleted	+= deleteFolderContents(curFile.getPath(), true);
+					Integer[] addAmountDeleted	= deleteFolderContents(curFile.getPath(), true);
+					amountDeleted[0]	+= addAmountDeleted[0];
+					amountDeleted[1]	+= addAmountDeleted[1];
 				} else {
-					amountDeleted	+= curFile.delete() ? 1:0;
+					amountDeleted[1]	+= curFile.delete() ? 1:0;
 				}
 			}
 		}
 		if( removeFolderItself ) {
-			amountDeleted+= folder.delete() ? 1:0;
+			amountDeleted[0]	+= folder.delete() ? 1:0;
 		}
 
 		return amountDeleted;
