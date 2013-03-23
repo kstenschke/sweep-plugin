@@ -92,7 +92,17 @@ public class PluginConfiguration {
 			JScrollPane jscrollPane  = new JScrollPane(projectTree);
 			rootPanel.add(jscrollPane);
 		}
-    }
+
+			// Setup changeListener on checkboxes- checking delete hidden checks also delete directories
+		hiddenFilesAndDirectoriesCheckBox.addItemListener(new ItemListener() {
+			@Override
+			public void itemStateChanged(ItemEvent e) {
+				if( e.getStateChange() == ItemEvent.SELECTED ) {
+					directoriesCheckBox.setSelected(true);
+				}
+			}
+		});
+	}
 
 
 

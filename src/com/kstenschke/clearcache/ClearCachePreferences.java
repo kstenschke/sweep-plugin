@@ -39,12 +39,20 @@ public class ClearCachePreferences {
 
 
 
+	/**
+	 * @return	The currently opened project
+	 */
 	private static Project getOpenProject() {
 		Project[] projects = ProjectManager.getInstance().getOpenProjects();
 
 		return (projects.length > 0) ? projects[0] : null;
 	}
 
+
+
+	/**
+	 * @return	PropertiesComponent (project level)
+	 */
 	private static PropertiesComponent getPropertiesComponent() {
 		Project project = getOpenProject();
 
@@ -54,9 +62,9 @@ public class ClearCachePreferences {
 
 
     /**
-     * Store path(s) preference
+     * Store preference: paths of cache directories
      *
-     * @param paths Contents to be stored in paths preference
+     * @param	paths Contents to be stored in paths preference
      */
     public static void savePaths(String paths) {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
@@ -66,6 +74,13 @@ public class ClearCachePreferences {
 		}
     }
 
+
+
+	/**
+	 * Store preference: delete directories?
+	 *
+	 * @param	delete
+	 */
     public static void saveDeleteDirectories(Boolean delete) {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 
@@ -74,6 +89,13 @@ public class ClearCachePreferences {
 		}
     }
 
+
+
+	/**
+	 * Store preference: delete hidden directories and files?
+	 *
+	 * @param	delete
+	 */
     public static void saveDeleteHidden(Boolean delete) {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 
@@ -85,7 +107,7 @@ public class ClearCachePreferences {
 
 
     /**
-     * Get path(s) preference
+     * Get preference: paths of cache directories
      *
      * @return String
      */
@@ -102,6 +124,11 @@ public class ClearCachePreferences {
 
 
 
+	/**
+	 * Get preference: delete directories?
+	 *
+	 * @return	Boolean
+	 */
     public static Boolean getDeleteDirectories() {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 		Boolean delete	= false;
@@ -114,6 +141,13 @@ public class ClearCachePreferences {
         return delete;
     }
 
+
+
+	/**
+	 * Get preference: delete hidden directories and files?
+	 *
+	 * @return	Boolean
+	 */
     public static Boolean getDeleteHidden() {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 		Boolean delete	= false;

@@ -28,7 +28,6 @@ import javax.swing.*;
 
 public class ClearCacheSettingsComponent implements ProjectComponent, Configurable {
 
-    // Note: Components shown in the IDEA settings dialog have 32x32 icons.
     private ImageIcon icon = new ImageIcon("/com/kstenschke/clearcache/resources/images/blank32x32.png");
 
     private PluginConfiguration settingsPanel = null;
