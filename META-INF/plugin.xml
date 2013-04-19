@@ -28,7 +28,12 @@
   <vendor url="" email="info@stenschke.com">Kay Stenschke</vendor>
   <idea-version since-build="107.105"/>
 
-  <change-notes><![CDATA[
+    <version>1.0.2</version>
+
+    <change-notes><![CDATA[
+    1.0.2<ul>
+        <li>Extended settings with "ignore pattern" to exclude files/folders containing it, from deletion</li>
+    </ul>
     1.0.1<ul>
         <li>Made removal of directories and hidden directories and files optional</li>
         <li>Refined results balloon to display amounts of deleted directories and files separately</li>
@@ -38,8 +43,6 @@
         <li>Initial release</li>
     </ul>
   ]]></change-notes>
-
-  <version>1.0.1</version>
 
   <application-components></application-components>
 

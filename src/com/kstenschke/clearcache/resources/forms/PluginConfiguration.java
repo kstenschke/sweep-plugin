@@ -35,37 +35,44 @@ import java.util.Arrays;
 
 public class PluginConfiguration {
 
-    public JPanel rootPanel;
+	public JPanel rootPanel;
+
 	private JPanel TopPanel;
+
 	private JCheckBox filesCheckBox;
+
 	private JCheckBox directoriesCheckBox;
+
 	private JCheckBox hiddenFilesAndDirectoriesCheckBox;
+
+	private JTextField textFieldIgnorePatterns;
+
 	private JTree projectTree;
 
 
-    /**
-     * Constructor
-     */
-    public PluginConfiguration() {
-        InitForm();
-    }
+	/**
+	 * Constructor
+	 */
+	public PluginConfiguration() {
+		InitForm();
+	}
 
-
-
-    /**
-     * Initialize the form: render project tree, select nodes from project preference
-     */
-    private void InitForm() {
+	/**
+	 * Initialize the form: render project tree, select nodes from project preference
+	 */
+	private void InitForm() {
 			// Init checkbox options' states
 		directoriesCheckBox.setSelected( ClearCachePreferences.getDeleteDirectories() );
 		hiddenFilesAndDirectoriesCheckBox.setSelected( ClearCachePreferences.getDeleteHidden() );
 
-			// Add project files tree, select directories from user's project preference
-        FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
-        FileChooserDescriptor descriptor =  new FileChooserDescriptor(false, true, false, false,false,false);
+		textFieldIgnorePatterns.setText( ClearCachePreferences.getIgnorePatterns() );
 
-        Project[] projects = ProjectManager.getInstance().getOpenProjects();
-        Project project = projects[0];
+			// Add project files tree, select directories from user's project preference
+		FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
+		FileChooserDescriptor descriptor =  new FileChooserDescriptor(false, true, false, false,false,false);
+
+		Project[] projects = ProjectManager.getInstance().getOpenProjects();
+		Project project = projects[0];
 
 		if( project != null ) {
 			VirtualFile baseDir  = project.getBaseDir();
@@ -104,37 +111,30 @@ public class PluginConfiguration {
 		});
 	}
 
+	/**
+	 * Reset the form to factory default
+	 */
+	private void onClickReset(ActionEvent e) {
 
+	}
 
-    /**
-     * Reset the form to factory default
-     */
-    private void onClickReset(ActionEvent e) {
+	public JPanel getRootPanel() {
+		return rootPanel;
+	}
 
-    }
-
-
-
-    public JPanel getRootPanel() {
-        return rootPanel;
-    }
-
-
-
-    /**
-     * Config modified?
-     *
-     * @return Boolean
-     */
-    public boolean isModified() {
-        return ! (
+	/**
+	 * Config modified?
+	 *
+	 * @return Boolean
+	*/
+	public boolean isModified() {
+		return ! (
 				getData().equals( ClearCachePreferences.getPaths() )
 			&&	isSelectedDeleteDirectories()	== ClearCachePreferences.getDeleteDirectories()
 			&&	isSelectedDeleteHidden()		== ClearCachePreferences.getDeleteHidden()
+		   && getIgnorePatterns().equals( ClearCachePreferences.getIgnorePatterns() )
 		);
-    }
-
-
+	}
 
 	public Boolean isSelectedDeleteDirectories() {
 		return directoriesCheckBox.isSelected();
@@ -144,30 +144,37 @@ public class PluginConfiguration {
 		return hiddenFilesAndDirectoriesCheckBox.isSelected();
 	}
 
+	/**
+	 * @return  Ignore patterns
+	 */
+	public String getIgnorePatterns() {
+		return textFieldIgnorePatterns.getText();
+	}
 
+	/**
+	 * @param str  Ignore patterns value
+	 */
+	public void setIgnorePatterns(String str) {
+		textFieldIgnorePatterns.setText(str);
+	}
 
-    public void setData() {
+	public void setData() {
 
 	}
 
+	/**
+	* Get selection paths
+	*
+	* @return  String
+	*/
+	public String getData() {
+		TreePath[] selectionPaths  = projectTree.getSelectionModel().getSelectionPaths();
 
+		return Arrays.toString( selectionPaths );
+	}
 
-    /**
-     * Get selection paths
-     *
-     * @return  String
-     */
-    public String getData() {
-        TreePath[] selectionPaths  = projectTree.getSelectionModel().getSelectionPaths();
-
-        return Arrays.toString( selectionPaths );
-    }
-
-
-
-
-    private void createUIComponents() {
-// TODO: place custom component creation code here
-    }
+   private void createUIComponents() {
+//    TODO: place custom component creation code here
+	}
 
 }

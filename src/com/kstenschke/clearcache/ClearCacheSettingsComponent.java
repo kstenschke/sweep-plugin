@@ -34,126 +34,96 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 
 
 
-    public JComponent createComponent() {
-        if (settingsPanel == null) {
-            settingsPanel = new PluginConfiguration();
-        }
+	public JComponent createComponent() {
+		if (settingsPanel == null) {
+			settingsPanel = new PluginConfiguration();
+		}
 
-        reset();
+		reset();
 
-        return settingsPanel.getRootPanel();
-    }
+		return settingsPanel.getRootPanel();
+	}
 
+	@Nls
+	public String getDisplayName() {
+		return "Clear Cache";
+	}
 
+	public boolean isModified() {
+		return settingsPanel != null && settingsPanel.isModified();
+	}
 
-    @Nls
-    public String getDisplayName() {
-        return "Clear Cache";
-    }
+	public void disposeUIResources() {
+		settingsPanel = null;
+	}
 
+	public void reset() {
+		if (settingsPanel != null ) {
 
+		}
+	}
 
-    public boolean isModified() {
-        return settingsPanel != null && settingsPanel.isModified();
-    }
+	/**
+	 * Get the icon of this {@link com.intellij.openapi.options.Configurable}.
+	 */
+	public Icon getIcon() {
+		if( icon == null ) {
+			icon	= new ImageIcon("/com/kstenschke/clearcache/resources/images/blank32x32.png");
+		}
 
+		return icon;
+	}
 
+	/**
+	 * Store project preference: cache folder(s)
+	 * @throws ConfigurationException
+	 */
+	public void apply() throws ConfigurationException {
+		if (settingsPanel != null) {
+			String paths	= settingsPanel.getData();
+			if( paths != null ) {
+				ClearCachePreferences.savePaths(paths);
+			}
 
-    public void disposeUIResources() {
-        settingsPanel = null;
-    }
+			ClearCachePreferences.saveDeleteDirectories(settingsPanel.isSelectedDeleteDirectories());
+			ClearCachePreferences.saveDeleteHidden(settingsPanel.isSelectedDeleteHidden());
+			ClearCachePreferences.saveIgnorePatterns(settingsPanel.getIgnorePatterns());
 
+			applyGlobalSettings();
+	  }
+	}
 
+	public String getHelpTopic() {
+		return null;
+	}
 
-    public void reset() {
-        if (settingsPanel != null ) {
-
-    	}
-    }
-
-
-
-    /**
-     * Get the icon of this {@link com.intellij.openapi.options.Configurable}.
-     */
-    public Icon getIcon() {
-        if( icon == null ) {
-            icon	= new ImageIcon("/com/kstenschke/clearcache/resources/images/blank32x32.png");
-        }
-
-        return icon;
-    }
-
-
-    /**
-     * Store project preference: cache folder(s)
-     * @throws ConfigurationException
-     */
-    public void apply() throws ConfigurationException {
-        if (settingsPanel != null) {
-
-            String paths	= settingsPanel.getData();
-            if( paths != null ) {
-                ClearCachePreferences.savePaths(paths);
-            }
-
-			ClearCachePreferences.saveDeleteDirectories( settingsPanel.isSelectedDeleteDirectories() );
-			ClearCachePreferences.saveDeleteHidden( settingsPanel.isSelectedDeleteHidden() );
-
-            applyGlobalSettings();
-        }
-    }
-
-
-
-    public String getHelpTopic() {
-        return null;
-    }
-
-
-
-    private void applyGlobalSettings() {
-
-    }
-
-
-
-
-
-
-    public ClearCacheSettingsComponent(Project project) {
-
-    }
-
-
-
-    public void initComponent() {
+	private void applyGlobalSettings() {
 
 	}
 
+	public ClearCacheSettingsComponent(Project project) {
 
+	}
 
-    public void disposeComponent() {
-        settingsPanel = null;
-    }
+   public void initComponent() {
 
+	}
 
+	public void disposeComponent() {
+		settingsPanel = null;
+	}
 
-    @NotNull
-    public String getComponentName() {
-        return "Clear Cache";
-    }
+	@NotNull
+	public String getComponentName() {
+		return "Clear Cache";
+	}
 
-
-
-    public void projectOpened() {
+	public void projectOpened() {
 // called when project is opened
-    }
+	}
 
-
-
-    public void projectClosed() {
+	public void projectClosed() {
 // called when project is being closed
-    }
+	}
 
 }

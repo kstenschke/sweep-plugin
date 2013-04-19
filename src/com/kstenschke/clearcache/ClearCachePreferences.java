@@ -37,6 +37,9 @@ public class ClearCachePreferences {
     @NonNls
     private static final String PROPERTY_DELETE_HIDDEN = "PluginClearCache.DeleteHidden";
 
+    @NonNls
+    private static final String PROPERTY_IGNORE_PATTERNS = "PluginClearCache.IgnorePatterns";
+
 
 
 	/**
@@ -48,8 +51,6 @@ public class ClearCachePreferences {
 		return (projects.length > 0) ? projects[0] : null;
 	}
 
-
-
 	/**
 	 * @return	PropertiesComponent (project level)
 	 */
@@ -58,8 +59,6 @@ public class ClearCachePreferences {
 
 		return project != null ? PropertiesComponent.getInstance(project) : null;
 	}
-
-
 
     /**
      * Store preference: paths of cache directories
@@ -74,8 +73,6 @@ public class ClearCachePreferences {
 		}
     }
 
-
-
 	/**
 	 * Store preference: delete directories?
 	 *
@@ -89,8 +86,6 @@ public class ClearCachePreferences {
 		}
     }
 
-
-
 	/**
 	 * Store preference: delete hidden directories and files?
 	 *
@@ -103,8 +98,6 @@ public class ClearCachePreferences {
 			propertiesComponent.setValue(PROPERTY_DELETE_HIDDEN, delete ? "1":"0");
 		}
     }
-
-
 
     /**
      * Get preference: paths of cache directories
@@ -121,8 +114,6 @@ public class ClearCachePreferences {
 
         return paths == null ? "" : paths;
     }
-
-
 
 	/**
 	 * Get preference: delete directories?
@@ -141,14 +132,12 @@ public class ClearCachePreferences {
         return delete;
     }
 
-
-
 	/**
 	 * Get preference: delete hidden directories and files?
 	 *
 	 * @return	Boolean
 	 */
-    public static Boolean getDeleteHidden() {
+	public static Boolean getDeleteHidden() {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 		Boolean delete	= false;
 
@@ -157,7 +146,37 @@ public class ClearCachePreferences {
 			delete	= pref != null && pref.equals("1");
 		}
 
-        return delete;
-    }
+		return delete;
+	}
+
+	/**
+	 * Get preference: Ignore patterns
+	 *
+	 * @return	String
+	 */
+	public static String getIgnorePatterns() {
+		PropertiesComponent propertiesComponent = getPropertiesComponent();
+		String ignorePatterns	= "";
+
+		if( propertiesComponent != null ) {
+			String pref	= propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
+			ignorePatterns	= pref != null ? pref : "";
+		}
+
+		return ignorePatterns;
+	}
+
+	/**
+	 * Store preference: ignorePatterns
+	 *
+	 * @param	ignorePatterns
+	 */
+	public static void saveIgnorePatterns(String ignorePatterns) {
+		PropertiesComponent propertiesComponent = getPropertiesComponent();
+
+		if( propertiesComponent != null ) {
+			propertiesComponent.setValue(PROPERTY_IGNORE_PATTERNS, ignorePatterns);
+		}
+	}
 
 }

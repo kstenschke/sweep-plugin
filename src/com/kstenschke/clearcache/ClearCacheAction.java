@@ -27,8 +27,11 @@ import com.kstenschke.clearcache.helpers.StringHelper;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.Arrays;
 
 public class ClearCacheAction extends AnAction {
+
+	String[] ignorePatterns = null;
 
 	/**
 	 * @param   event    ActionSystem event
@@ -38,7 +41,7 @@ public class ClearCacheAction extends AnAction {
 
 		String cachePathsPrefString	= ClearCachePreferences.getPaths();
 		if( cachePathsPrefString != null && ! cachePathsPrefString.isEmpty() ) {
-			cachePaths     = StringHelper.extractTreePathStringsFromPref(cachePathsPrefString);
+			cachePaths  = StringHelper.extractTreePathStringsFromPref(cachePathsPrefString);
 		}
 
 		if( cachePaths == null || cachePaths.length == 0 ) {
@@ -63,8 +66,6 @@ public class ClearCacheAction extends AnAction {
 		}
 	}
 
-
-
 	/**
 	 * Remove contents of given directories
 	 *
@@ -84,7 +85,25 @@ public class ClearCacheAction extends AnAction {
 		return amountDeleted;
 	}
 
+	/**
+	 * @param   str
+	 * @return  Does any of the "ignore patterns" match the given string?
+	 */
+	private Boolean isMatchingIgnorePattern(String str) {
+		if(this.ignorePatterns == null ) {
+			this.ignorePatterns  = ClearCachePreferences.getIgnorePatterns().split(",");
+		}
 
+		if( this.ignorePatterns.length > 0 ) {
+			for( String ignorePattern : this.ignorePatterns) {
+				if( str.contains(ignorePattern)) {
+					return true;
+				}
+			}
+		}
+
+		return false;
+	}
 
 	/**
 	 * Delete all files/folders inside given path recursively
@@ -111,14 +130,18 @@ public class ClearCacheAction extends AnAction {
 						amountDeleted[0]	+= addAmountDeleted[0];
 						amountDeleted[1]	+= addAmountDeleted[1];
 					} else {
-						amountDeleted[1]	+= curFile.delete() ? 1:0;
+						if(! isMatchingIgnorePattern(curFile.toString())) {
+							amountDeleted[1]	+= curFile.delete() ? 1:0;
+						}
 					}
 				}
 			}
 		}
 
 		if( removeFolderItself && (!folder.isHidden() || deleteHidden )  ) {
-			amountDeleted[0]	+= folder.delete() ? 1:0;
+			if(! isMatchingIgnorePattern(folder.toString())) {
+				amountDeleted[0]	+= folder.delete() ? 1:0;
+			}
 		}
 
 		return amountDeleted;
