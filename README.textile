@@ -18,6 +18,8 @@ One or more cache folders are configurable in the project settings.
 When clicking the button, all files inside the cache directories will be deleted recursively.
 The plugin settings allow to delete also cached directories and hidden files and directories.
 
+Please note: the plugin is a tool for deleting configured directories and files, it is NOT a shortcut to remotely evoke clearing the cache of a specific browser or other application.
+
 
 
 
