@@ -28,7 +28,7 @@ import javax.swing.*;
 
 public class SweepSettingsComponent implements ProjectComponent, Configurable {
 
-    private ImageIcon icon = new ImageIcon("/com/kstenschke/sweep/resources/images/blank32x32.png");
+    private ImageIcon icon = new ImageIcon("/com/kstenschke/sweep/resources/images/broom.png");
 
     private PluginConfiguration settingsPanel = null;
 
@@ -56,9 +56,9 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
     }
 
     public void reset() {
-        if (settingsPanel != null ) {
-
-        }
+//        if (settingsPanel != null ) {
+//
+//        }
     }
 
     /**
@@ -66,7 +66,7 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
      */
     public Icon getIcon() {
         if (icon == null) {
-            icon    = new ImageIcon("/com/kstenschke/sweep/resources/images/blank32x32.png");
+            icon = new ImageIcon("/com/kstenschke/sweep/resources/images/blank32x32.png");
         }
 
         return icon;
@@ -79,7 +79,7 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
      */
     public void apply() throws ConfigurationException {
         if (settingsPanel != null) {
-            String paths    = settingsPanel.getData();
+            String paths = settingsPanel.getData();
             if (paths != null) {
                 SweepPreferences.savePaths(paths);
             }

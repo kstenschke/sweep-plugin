@@ -34,12 +34,12 @@ public class SweepAction extends AnAction {
     private String[] ignorePatterns = null;
 
     /**
-     * @param   event    ActionSystem event
+     * @param event    ActionSystem event
      */
     public void actionPerformed(AnActionEvent event) {
         String[] sweepPaths = {};
 
-        String sweepPathsPrefString    = SweepPreferences.getPaths();
+        String sweepPathsPrefString = SweepPreferences.getPaths();
         if (sweepPathsPrefString != null && ! sweepPathsPrefString.isEmpty()) {
             sweepPaths  = StringHelper.extractTreePathStringsFromPref(sweepPathsPrefString);
         }
@@ -57,7 +57,7 @@ public class SweepAction extends AnAction {
             Balloon balloon = builder.createBalloon();
             balloon.setAnimationEnabled(true);
 
-            Component eventComponent    = event.getInputEvent().getComponent();
+            Component eventComponent = event.getInputEvent().getComponent();
             Point componentLocation = eventComponent.getLocation();
             Integer    x= new Double(componentLocation.getX()).intValue() + eventComponent.getWidth() + 40;
             Integer    y= new Double(componentLocation.getY()).intValue() + eventComponent.getHeight() + 42;
@@ -75,7 +75,7 @@ public class SweepAction extends AnAction {
      */
     private Integer[] sweepFoldersContent(String[] sweepPaths) {
         Integer[] amountDeleted = {0, 0};
-        Boolean deleteHidden    = SweepPreferences.getDeleteHidden();
+        Boolean deleteHidden = SweepPreferences.getDeleteHidden();
 
         for(String curPath: sweepPaths) {
             Integer[] addAmountDeleted = deleteFolderContents(curPath, false, deleteHidden);
@@ -87,8 +87,8 @@ public class SweepAction extends AnAction {
     }
 
     /**
-     * @param   str
-     * @return  Does any of the "ignore patterns" match the given string?
+     * @param  str
+     * @return Does any of the "ignore patterns" match the given string?
      */
     private Boolean isMatchingIgnorePattern(String str) {
         if(this.ignorePatterns == null ) {
@@ -119,7 +119,7 @@ public class SweepAction extends AnAction {
         Integer[] amountDeleted = {0, 0};
         Boolean deleteSubFolders= (removeFolderItself || deleteHidden) ? true : SweepPreferences.getDeleteDirectories();
 
-        File folder    = new File(path);
+        File folder = new File(path);
         File[] files= folder.listFiles();
 
         //some JVMs return null for empty dirs
@@ -127,7 +127,7 @@ public class SweepAction extends AnAction {
             for(File curFile: files) {
                 if (!curFile.isHidden() || deleteHidden) {
                     if (curFile.isDirectory()) {
-                        Integer[] addAmountDeleted    = deleteFolderContents(curFile.getPath(), deleteSubFolders, deleteHidden);
+                        Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), deleteSubFolders, deleteHidden);
 
                         amountDeleted[0]    += addAmountDeleted[0];
                         amountDeleted[1]    += addAmountDeleted[1];

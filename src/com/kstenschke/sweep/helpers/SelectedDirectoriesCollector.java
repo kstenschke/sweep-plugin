@@ -43,10 +43,10 @@ public class SelectedDirectoriesCollector {
      * @return Virtual files of selected directories
      */
     public VirtualFile[] getSelectedVFDirectories() {
-        String selectionPathsPrefString    =  SweepPreferences.getPaths();
+        String selectionPathsPrefString =  SweepPreferences.getPaths();
 
         if (! selectionPathsPrefString.isEmpty()) {
-            selectionPathStrings     = StringHelper.extractTreePathStringsFromPref(selectionPathsPrefString);
+            selectionPathStrings = StringHelper.extractTreePathStringsFromPref(selectionPathsPrefString);
 
             if (selectionPathStrings != null && selectionPathStrings.length > 0) {
                 String curPath = baseDir.getPath();

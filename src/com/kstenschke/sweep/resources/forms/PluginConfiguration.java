@@ -128,8 +128,8 @@ public class PluginConfiguration {
     public boolean isModified() {
         return ! (
                 getData().equals(SweepPreferences.getPaths())
-            &&    isSelectedDeleteDirectories()    == SweepPreferences.getDeleteDirectories()
-            &&    isSelectedDeleteHidden()        == SweepPreferences.getDeleteHidden()
+            &&    isSelectedDeleteDirectories()  == SweepPreferences.getDeleteDirectories()
+            &&    isSelectedDeleteHidden()       == SweepPreferences.getDeleteHidden()
            && getIgnorePatterns().equals(SweepPreferences.getIgnorePatterns())
         );
     }

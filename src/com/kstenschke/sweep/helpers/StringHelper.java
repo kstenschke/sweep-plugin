@@ -68,21 +68,21 @@ public class StringHelper {
      * @return Array of strings representing a treePath each | null if the string's format isn't as expected
      */
     public static String[] extractTreePathStringsFromPref(String treePathsPrefStr) {
-        treePathsPrefStr    = StringHelper.removePrefixChar(treePathsPrefStr, "[");
-        treePathsPrefStr    = StringHelper.removePostfixChar(treePathsPrefStr, "]");
+        treePathsPrefStr = StringHelper.removePrefixChar(treePathsPrefStr, "[");
+        treePathsPrefStr = StringHelper.removePostfixChar(treePathsPrefStr, "]");
 
         if (treePathsPrefStr != null) {
             if(treePathsPrefStr.contains("],")) {
                 // There are multiple TreePath strings contained
-                String[] treePathStrings    = treePathsPrefStr.split("\\]");
+                String[] treePathStrings = treePathsPrefStr.split("\\]");
                 Integer count = 0;
                 for (String curTreePath: treePathStrings) {
-                    curTreePath    = StringHelper.removePrefixChar(curTreePath, ",", false);
-                    curTreePath    = StringHelper.removePrefixChar(curTreePath, " ", false);
-                    curTreePath    = StringHelper.removePrefixChar(curTreePath, "[");
-                    curTreePath    = curTreePath.replaceAll(", ", "\\/");
+                    curTreePath = StringHelper.removePrefixChar(curTreePath, ",", false);
+                    curTreePath = StringHelper.removePrefixChar(curTreePath, " ", false);
+                    curTreePath = StringHelper.removePrefixChar(curTreePath, "[");
+                    curTreePath = curTreePath.replaceAll(", ", "\\/");
 
-                    treePathStrings[count]    = curTreePath;
+                    treePathStrings[count] = curTreePath;
                     count++;
                 }
 
@@ -90,9 +90,9 @@ public class StringHelper {
             }
 
             // There's only one TreePath string contained
-            treePathsPrefStr    = StringHelper.removePrefixChar(treePathsPrefStr, "[");
-            treePathsPrefStr    = StringHelper.removePostfixChar(treePathsPrefStr, "]");
-            treePathsPrefStr    = treePathsPrefStr.replaceAll(", ", "\\/");
+            treePathsPrefStr = StringHelper.removePrefixChar(treePathsPrefStr, "[");
+            treePathsPrefStr = StringHelper.removePostfixChar(treePathsPrefStr, "]");
+            treePathsPrefStr = treePathsPrefStr.replaceAll(", ", "\\/");
 
             return treePathsPrefStr == null ? null : new String[] { treePathsPrefStr };
         }

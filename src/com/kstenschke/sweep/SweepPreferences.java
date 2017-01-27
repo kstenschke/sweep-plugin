@@ -104,10 +104,10 @@ public class SweepPreferences {
      */
     public static String getPaths() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
-        String paths    = null;
+        String paths = null;
 
         if (propertiesComponent != null) {
-            paths    = propertiesComponent.getValue(PROPERTY_PATHS);
+            paths = propertiesComponent.getValue(PROPERTY_PATHS);
         }
 
         return paths == null ? "" : paths;
@@ -120,11 +120,11 @@ public class SweepPreferences {
      */
     public static Boolean getDeleteDirectories() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
-        Boolean delete    = false;
+        Boolean delete = false;
 
         if (propertiesComponent != null) {
-            String pref    = propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES);
-            delete    = pref != null && pref.equals("1");
+            String pref = propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES);
+            delete = pref != null && pref.equals("1");
         }
 
         return delete;
@@ -137,11 +137,11 @@ public class SweepPreferences {
      */
     public static Boolean getDeleteHidden() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
-        Boolean delete    = false;
+        Boolean delete = false;
 
         if (propertiesComponent != null) {
-            String pref    = propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN);
-            delete    = pref != null && pref.equals("1");
+            String pref = propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN);
+            delete = pref != null && pref.equals("1");
         }
 
         return delete;
@@ -154,11 +154,11 @@ public class SweepPreferences {
      */
     public static String getIgnorePatterns() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
-        String ignorePatterns    = "";
+        String ignorePatterns = "";
 
         if (propertiesComponent != null) {
             String pref    = propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
-            ignorePatterns    = pref != null ? pref : "";
+            ignorePatterns = pref != null ? pref : "";
         }
 
         return ignorePatterns;

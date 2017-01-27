@@ -58,8 +58,8 @@
 
   <actions>
     <group id="Sweep">
-        <separator/>
-        <action id="Sweep" class="com.kstenschke.sweep.SweepAction" text="Sweep Files" description="Delete temporary files" icon="resources/images/broom.png">
+        <action id="Sweep" class="com.kstenschke.sweep.SweepAction" text="Sweep Files" description="Delete temporary files"
+                icon="SweepIcons.BROOM">
         </action>
 
         <add-to-group group-id="MainToolBar" anchor="after" relative-to-action="Synchronize"/>
