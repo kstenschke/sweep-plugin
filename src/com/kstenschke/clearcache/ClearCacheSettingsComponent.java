@@ -67,7 +67,7 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 	 * Get the icon of this {@link com.intellij.openapi.options.Configurable}.
 	 */
 	public Icon getIcon() {
-		if( icon == null ) {
+		if (icon == null) {
 			icon	= new ImageIcon("/com/kstenschke/clearcache/resources/images/blank32x32.png");
 		}
 
@@ -81,7 +81,7 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 	public void apply() throws ConfigurationException {
 		if (settingsPanel != null) {
 			String paths	= settingsPanel.getData();
-			if( paths != null ) {
+			if (paths != null) {
 				ClearCachePreferences.savePaths(paths);
 			}
 

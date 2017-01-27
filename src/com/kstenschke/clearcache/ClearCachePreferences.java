@@ -68,7 +68,7 @@ public class ClearCachePreferences {
     public static void savePaths(String paths) {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 
-		if( propertiesComponent != null ) {
+		if (propertiesComponent != null) {
 			propertiesComponent.setValue(PROPERTY_PATHS, paths);
 		}
     }
@@ -81,7 +81,7 @@ public class ClearCachePreferences {
     public static void saveDeleteDirectories(Boolean delete) {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 
-		if( propertiesComponent != null ) {
+		if (propertiesComponent != null) {
 			propertiesComponent.setValue(PROPERTY_DELETE_DIRECTORIES, delete? "1":"0");
 		}
     }
@@ -94,7 +94,7 @@ public class ClearCachePreferences {
     public static void saveDeleteHidden(Boolean delete) {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 
-		if( propertiesComponent != null ) {
+		if (propertiesComponent != null) {
 			propertiesComponent.setValue(PROPERTY_DELETE_HIDDEN, delete ? "1":"0");
 		}
     }
@@ -108,7 +108,7 @@ public class ClearCachePreferences {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 		String paths	= null;
 
-		if( propertiesComponent != null ) {
+		if (propertiesComponent != null) {
 			paths	= propertiesComponent.getValue(PROPERTY_PATHS);
 		}
 
@@ -124,7 +124,7 @@ public class ClearCachePreferences {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 		Boolean delete	= false;
 
-		if( propertiesComponent != null ) {
+		if (propertiesComponent != null) {
 			String pref	= propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES);
 			delete	= pref != null && pref.equals("1");
 		}
@@ -141,7 +141,7 @@ public class ClearCachePreferences {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 		Boolean delete	= false;
 
-		if( propertiesComponent != null ) {
+		if (propertiesComponent != null) {
 			String pref	= propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN);
 			delete	= pref != null && pref.equals("1");
 		}
@@ -158,7 +158,7 @@ public class ClearCachePreferences {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 		String ignorePatterns	= "";
 
-		if( propertiesComponent != null ) {
+		if (propertiesComponent != null) {
 			String pref	= propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
 			ignorePatterns	= pref != null ? pref : "";
 		}
@@ -174,7 +174,7 @@ public class ClearCachePreferences {
 	public static void saveIgnorePatterns(String ignorePatterns) {
 		PropertiesComponent propertiesComponent = getPropertiesComponent();
 
-		if( propertiesComponent != null ) {
+		if (propertiesComponent != null) {
 			propertiesComponent.setValue(PROPERTY_IGNORE_PATTERNS, ignorePatterns);
 		}
 	}

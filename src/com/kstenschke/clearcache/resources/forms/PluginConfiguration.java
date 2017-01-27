@@ -62,10 +62,10 @@ public class PluginConfiguration {
 	 */
 	private void InitForm() {
 			// Init checkbox options' states
-		directoriesCheckBox.setSelected( ClearCachePreferences.getDeleteDirectories() );
-		hiddenFilesAndDirectoriesCheckBox.setSelected( ClearCachePreferences.getDeleteHidden() );
+		directoriesCheckBox.setSelected(ClearCachePreferences.getDeleteDirectories());
+		hiddenFilesAndDirectoriesCheckBox.setSelected(ClearCachePreferences.getDeleteHidden());
 
-		textFieldIgnorePatterns.setText( ClearCachePreferences.getIgnorePatterns() );
+		textFieldIgnorePatterns.setText(ClearCachePreferences.getIgnorePatterns());
 
 			// Add project files tree, select directories from user's project preference
 		FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
@@ -74,7 +74,7 @@ public class PluginConfiguration {
 		Project[] projects = ProjectManager.getInstance().getOpenProjects();
 		Project project = projects[0];
 
-		if( project != null ) {
+		if (project != null) {
 			VirtualFile baseDir  = project.getBaseDir();
 			descriptor.setRoots(baseDir);
 //			descriptor.setIsTreeRootVisible(true);
@@ -89,7 +89,7 @@ public class PluginConfiguration {
 			SelectedDirectoriesCollector selFilesCollector = new SelectedDirectoriesCollector(baseDir);
 			VirtualFile[] selectedDirectories = selFilesCollector.getSelectedVFDirectories();
 
-			if( selectedDirectories != null ) {
+			if (selectedDirectories != null) {
 				tree.select(selectedDirectories, null);
 			}
 
@@ -104,7 +104,7 @@ public class PluginConfiguration {
 		hiddenFilesAndDirectoriesCheckBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
-				if( e.getStateChange() == ItemEvent.SELECTED ) {
+				if (e.getStateChange() == ItemEvent.SELECTED) {
 					directoriesCheckBox.setSelected(true);
 				}
 			}
@@ -129,10 +129,10 @@ public class PluginConfiguration {
 	*/
 	public boolean isModified() {
 		return ! (
-				getData().equals( ClearCachePreferences.getPaths() )
+				getData().equals(ClearCachePreferences.getPaths())
 			&&	isSelectedDeleteDirectories()	== ClearCachePreferences.getDeleteDirectories()
 			&&	isSelectedDeleteHidden()		== ClearCachePreferences.getDeleteHidden()
-		   && getIgnorePatterns().equals( ClearCachePreferences.getIgnorePatterns() )
+		   && getIgnorePatterns().equals(ClearCachePreferences.getIgnorePatterns())
 		);
 	}
 
@@ -170,7 +170,7 @@ public class PluginConfiguration {
 	public String getData() {
 		TreePath[] selectionPaths  = projectTree.getSelectionModel().getSelectionPaths();
 
-		return Arrays.toString( selectionPaths );
+		return Arrays.toString(selectionPaths);
 	}
 
    private void createUIComponents() {

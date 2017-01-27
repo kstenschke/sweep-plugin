@@ -50,18 +50,18 @@ public class SelectedDirectoriesCollector {
 	public VirtualFile[] getSelectedVFDirectories() {
 		String selectionPathsPrefString    =  ClearCachePreferences.getPaths();
 
-		if( ! selectionPathsPrefString.isEmpty() ) {
+		if (! selectionPathsPrefString.isEmpty()) {
 			selectionPathStrings     = StringHelper.extractTreePathStringsFromPref(selectionPathsPrefString);
 
-			if( selectionPathStrings != null && selectionPathStrings.length > 0 ) {
+			if (selectionPathStrings != null && selectionPathStrings.length > 0) {
 				String curPath = baseDir.getPath();
-				if( Arrays.asList(selectionPathStrings).contains(curPath) ) {
+				if (Arrays.asList(selectionPathStrings).contains(curPath)) {
 					selectedVFDirectories.add(baseDir);
 				}
 
 				this.findSelectedSubDirectories(baseDir);
 
-				if( selectedVFDirectories != null && selectedVFDirectories.size() > 0 ) {
+				if (selectedVFDirectories != null && selectedVFDirectories.size() > 0) {
 					return selectedVFDirectories.toArray(new VirtualFile[selectedVFDirectories.size()]);
 				}
 			}
@@ -82,10 +82,10 @@ public class SelectedDirectoriesCollector {
 		VirtualFile[] subDirectories = directory.getChildren();
 
 		for(VirtualFile curDirectoryVF: subDirectories) {
-			if( curDirectoryVF.isDirectory() /*&& ! isFileHidden(curDirectoryVF)*/ ) {
+			if (curDirectoryVF.isDirectory() /*&& ! isFileHidden(curDirectoryVF)*/) {
 				String curPath = curDirectoryVF.getPath();
 
-				if( Arrays.asList(selectionPathStrings).contains(curPath) ) {
+				if (Arrays.asList(selectionPathStrings).contains(curPath)) {
 					selectedVFDirectories.add(curDirectoryVF);
 				}
 

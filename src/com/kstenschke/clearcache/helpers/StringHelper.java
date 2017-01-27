@@ -27,7 +27,7 @@ public class StringHelper {
 	 * @return	String
 	 */
 	private static String removePrefixChar(String sourceStr, String prefixChar, Boolean prefixMustExist) {
-		if( sourceStr != null && sourceStr.indexOf(prefixChar)  == 0 ) {
+		if (sourceStr != null && sourceStr.indexOf(prefixChar)  == 0) {
 			return sourceStr.substring(1);
 		}
 
@@ -49,7 +49,7 @@ public class StringHelper {
 	 * @return	String
 	 */
 	private static String removePostfixChar(String sourceStr, String trailChar, Boolean trailMustExist) {
-		if( sourceStr != null && sourceStr.lastIndexOf(trailChar)  == sourceStr.length() -1 ) {
+		if (sourceStr != null && sourceStr.lastIndexOf(trailChar)  == sourceStr.length() -1) {
 			return sourceStr.substring(0, sourceStr.length() -1 );
 		}
 
@@ -70,7 +70,7 @@ public class StringHelper {
 		treePathsPrefStr	= StringHelper.removePrefixChar(treePathsPrefStr, "[");
 		treePathsPrefStr	= StringHelper.removePostfixChar(treePathsPrefStr, "]");
 
-		if( treePathsPrefStr != null ) {
+		if (treePathsPrefStr != null) {
 			if(treePathsPrefStr.contains("],")) {
 				// There are multiple TreePath strings contained
 				String[] treePathStrings	= treePathsPrefStr.split("\\]");

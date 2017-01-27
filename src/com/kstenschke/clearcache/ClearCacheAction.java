@@ -40,11 +40,11 @@ public class ClearCacheAction extends AnAction {
 		String[] cachePaths = {};
 
 		String cachePathsPrefString	= ClearCachePreferences.getPaths();
-		if( cachePathsPrefString != null && ! cachePathsPrefString.isEmpty() ) {
+		if (cachePathsPrefString != null && ! cachePathsPrefString.isEmpty()) {
 			cachePaths  = StringHelper.extractTreePathStringsFromPref(cachePathsPrefString);
 		}
 
-		if( cachePaths == null || cachePaths.length == 0 ) {
+		if (cachePaths == null || cachePaths.length == 0) {
 			JOptionPane.showMessageDialog(null, "Please configure cache path(s) in the plugin preferences.");
 		} else {
 			Integer[] amountDeleted = this.clearFoldersContent(cachePaths);
@@ -60,7 +60,7 @@ public class ClearCacheAction extends AnAction {
 			Point componentLocation = eventComponent.getLocation();
 			Integer	x= new Double(componentLocation.getX()).intValue() + eventComponent.getWidth() + 40;
 			Integer	y= new Double(componentLocation.getY()).intValue() + eventComponent.getHeight() + 42;
-			RelativePoint balloonPosition = new RelativePoint( new Point(x, y) );
+			RelativePoint balloonPosition = new RelativePoint(new Point(x, y));
 
 			balloon.show(balloonPosition, pos);
 		}
@@ -94,9 +94,9 @@ public class ClearCacheAction extends AnAction {
 			this.ignorePatterns  = ClearCachePreferences.getIgnorePatterns().split(",");
 		}
 
-		if( this.ignorePatterns.length > 0 ) {
-			for( String ignorePattern : this.ignorePatterns) {
-				if( str.contains(ignorePattern)) {
+		if (this.ignorePatterns.length > 0) {
+			for (String ignorePattern : this.ignorePatterns) {
+				if (str.contains(ignorePattern)) {
 					return true;
 				}
 			}
@@ -123,8 +123,8 @@ public class ClearCacheAction extends AnAction {
 
 		if(files != null) { //some JVMs return null for empty dirs
 			for(File curFile: files) {
-				if ( !curFile.isHidden() || deleteHidden ) {
-					if( curFile.isDirectory() ) {
+				if (!curFile.isHidden() || deleteHidden) {
+					if (curFile.isDirectory()) {
 						Integer[] addAmountDeleted	= deleteFolderContents(curFile.getPath(), deleteSubFolders, deleteHidden);
 
 						amountDeleted[0]	+= addAmountDeleted[0];
@@ -138,7 +138,7 @@ public class ClearCacheAction extends AnAction {
 			}
 		}
 
-		if( removeFolderItself && (!folder.isHidden() || deleteHidden )  ) {
+		if (removeFolderItself && (!folder.isHidden() || deleteHidden)) {
 			if(! isMatchingIgnorePattern(folder.toString())) {
 				amountDeleted[0]	+= folder.delete() ? 1:0;
 			}
