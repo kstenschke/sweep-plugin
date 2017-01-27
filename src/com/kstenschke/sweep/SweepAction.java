@@ -21,7 +21,9 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.BalloonBuilder;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
+import com.intellij.ui.JBColor;
 import com.intellij.ui.awt.RelativePoint;
+import com.intellij.util.ui.UIUtil;
 import com.kstenschke.sweep.helpers.StringHelper;
 
 import javax.swing.*;
@@ -51,7 +53,8 @@ public class SweepAction extends AnAction {
 			Balloon.Position pos = Balloon.Position.below;
 			String balloonText   = "Deleted " + amountDeleted[0] + " directories and " + amountDeleted[1] + " files";
 
-			BalloonBuilder builder = JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(balloonText, null, new Color(245, 245, 245), null);
+			JBColor backgroundColor = new JBColor(new Color(245, 245, 245), new Color(60, 63, 65));
+			BalloonBuilder builder = JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(balloonText, null, backgroundColor, null);
 			Balloon balloon = builder.createBalloon();
 			balloon.setAnimationEnabled(true);
 

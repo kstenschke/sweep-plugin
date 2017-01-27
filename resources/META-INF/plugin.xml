@@ -31,9 +31,9 @@
     <ul>
         <li>1.1.0
             <ul>
-                <li>Change plugin name to "Sweep"</li>
                 <li>Made notices darcula compatible</li>
                 <li>General code cleanup and updates</li>
+                <li>Changed plugin name to "Sweep"</li>
             </ul>
         </li>
         <li>1.0.2 Extended settings with "ignore pattern" to exclude files/folders containing it, from deletion</li>

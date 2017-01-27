@@ -1,0 +1,15 @@
+Sweep Plugin - Changelog
+
+* 1.1.0
+    ** Made notice bubbles "Darcula" theme aware
+    ** General code cleanup and updates
+    ** Changed plugin name to "Sweep"
+* 1.0.2
+    ** Removed the plugin from Jetbrains Plugin Repository
+    ** Extended settings with "ignore pattern" to exclude files/folders containing it, from deletion
+* 1.0.1
+    ** Made removal of directories and hidden directories and files optional
+    ** Refined results balloon to display amounts of deleted directories and files separately
+    ** Added instruction text to plugin configuration form
+* 1.0.0
+    ** Initial release as "ClearCache" plugin
