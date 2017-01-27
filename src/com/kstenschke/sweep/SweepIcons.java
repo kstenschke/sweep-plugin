@@ -22,6 +22,7 @@ import javax.swing.*;
 
 public class SweepIcons {
 
-    Icon BROOM = IconLoader.getIcon("/broom.png");
+    //Icon BROOM = IconLoader.getIcon("/broom.png");
+    Icon BROOM = new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png");
 
 }

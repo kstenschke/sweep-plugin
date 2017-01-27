@@ -57,14 +57,13 @@
   </project-components>
 
   <actions>
-    <group id="Sweep">
-        <action id="Sweep" class="com.kstenschke.sweep.SweepAction" text="Sweep Files" description="Delete temporary files"
-                icon="SweepIcons.BROOM">
-        </action>
-
+    <action id="Sweep"
+            class="com.kstenschke.sweep.SweepAction"
+            text="Sweep Files"
+            description="Sweep files/directories"
+            icon="/com/kstenschke/sweep/resources/icons/broom@2x.png">
         <add-to-group group-id="MainToolBar" anchor="after" relative-to-action="Synchronize"/>
-        <!--MainToolBar-->
-    </group>
+    </action>
   </actions>
 
   <extensions defaultExtensionNs="com.intellij"></extensions>

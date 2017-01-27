@@ -28,7 +28,7 @@ import javax.swing.*;
 
 public class SweepSettingsComponent implements ProjectComponent, Configurable {
 
-    private ImageIcon icon = new ImageIcon("/com/kstenschke/sweep/resources/images/broom.png");
+    private ImageIcon icon = new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png");
 
     private PluginConfiguration settingsPanel = null;
 
@@ -66,7 +66,7 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
      */
     public Icon getIcon() {
         if (icon == null) {
-            icon = new ImageIcon("/com/kstenschke/sweep/resources/images/blank32x32.png");
+            icon = new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png");
         }
 
         return icon;
