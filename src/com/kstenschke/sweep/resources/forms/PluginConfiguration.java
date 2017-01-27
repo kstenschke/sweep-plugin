@@ -32,149 +32,147 @@ import javax.swing.tree.TreeSelectionModel;
 import java.awt.event.*;
 import java.util.Arrays;
 
-
 public class PluginConfiguration {
 
-	private JPanel rootPanel;
+    private JPanel rootPanel;
 
-	private JPanel TopPanel;
+    private JPanel TopPanel;
 
-	private JCheckBox filesCheckBox;
+    private JCheckBox filesCheckBox;
 
-	private JCheckBox directoriesCheckBox;
+    private JCheckBox directoriesCheckBox;
 
-	private JCheckBox hiddenFilesAndDirectoriesCheckBox;
+    private JCheckBox hiddenFilesAndDirectoriesCheckBox;
 
-	private JTextField textFieldIgnorePatterns;
+    private JTextField textFieldIgnorePatterns;
 
-	private JTree projectTree;
+    private JTree projectTree;
 
+    /**
+     * Constructor
+     */
+    public PluginConfiguration() {
+        InitForm();
+    }
 
-	/**
-	 * Constructor
-	 */
-	public PluginConfiguration() {
-		InitForm();
-	}
+    /**
+     * Initialize the form: render project tree, select nodes from project preference
+     */
+    private void InitForm() {
+        // Init checkbox options' states
+        directoriesCheckBox.setSelected(SweepPreferences.getDeleteDirectories());
+        hiddenFilesAndDirectoriesCheckBox.setSelected(SweepPreferences.getDeleteHidden());
 
-	/**
-	 * Initialize the form: render project tree, select nodes from project preference
-	 */
-	private void InitForm() {
-		// Init checkbox options' states
-		directoriesCheckBox.setSelected(SweepPreferences.getDeleteDirectories());
-		hiddenFilesAndDirectoriesCheckBox.setSelected(SweepPreferences.getDeleteHidden());
+        textFieldIgnorePatterns.setText(SweepPreferences.getIgnorePatterns());
 
-		textFieldIgnorePatterns.setText(SweepPreferences.getIgnorePatterns());
+        // Add project files tree, select directories from user's project preference
+        FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
+        FileChooserDescriptor descriptor =  new FileChooserDescriptor(false, true, false, false,false,false);
 
-		// Add project files tree, select directories from user's project preference
-		FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
-		FileChooserDescriptor descriptor =  new FileChooserDescriptor(false, true, false, false,false,false);
+        Project[] projects = ProjectManager.getInstance().getOpenProjects();
+        Project project = projects[0];
 
-		Project[] projects = ProjectManager.getInstance().getOpenProjects();
-		Project project = projects[0];
+        if (project != null) {
+            VirtualFile baseDir  = project.getBaseDir();
+            descriptor.setRoots(baseDir);
+//            descriptor.setIsTreeRootVisible(true);
 
-		if (project != null) {
-			VirtualFile baseDir  = project.getBaseDir();
-			descriptor.setRoots(baseDir);
-//			descriptor.setIsTreeRootVisible(true);
+            FileSystemTree tree = treeFactory.createFileSystemTree(project, descriptor);
 
-			FileSystemTree tree = treeFactory.createFileSystemTree(project, descriptor);
+            // Enable multi-selection
+            projectTree   = tree.getTree();
+            projectTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
 
-			// Enable multi-selection
-			projectTree   = tree.getTree();
-			projectTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+            // Find+select directories in project file-tree, that are contained in preference also
+            SelectedDirectoriesCollector selFilesCollector = new SelectedDirectoriesCollector(baseDir);
+            VirtualFile[] selectedDirectories = selFilesCollector.getSelectedVFDirectories();
 
-			// Find+select directories in project file-tree, that are contained in preference also
-			SelectedDirectoriesCollector selFilesCollector = new SelectedDirectoriesCollector(baseDir);
-			VirtualFile[] selectedDirectories = selFilesCollector.getSelectedVFDirectories();
+            if (selectedDirectories != null) {
+                tree.select(selectedDirectories, null);
+            }
 
-			if (selectedDirectories != null) {
-				tree.select(selectedDirectories, null);
-			}
+            tree.updateTree();
 
-			tree.updateTree();
+            // Add project folders tree to settings component
+            JScrollPane jscrollPane  = new JScrollPane(projectTree);
+            rootPanel.add(jscrollPane);
+        }
 
-			// Add project folders tree to settings component
-			JScrollPane jscrollPane  = new JScrollPane(projectTree);
-			rootPanel.add(jscrollPane);
-		}
+        // Setup changeListener on checkboxes- checking delete hidden checks also delete directories
+        hiddenFilesAndDirectoriesCheckBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    directoriesCheckBox.setSelected(true);
+                }
+            }
+        });
+    }
 
-		// Setup changeListener on checkboxes- checking delete hidden checks also delete directories
-		hiddenFilesAndDirectoriesCheckBox.addItemListener(new ItemListener() {
-			@Override
-			public void itemStateChanged(ItemEvent e) {
-				if (e.getStateChange() == ItemEvent.SELECTED) {
-					directoriesCheckBox.setSelected(true);
-				}
-			}
-		});
-	}
+    /**
+     * Reset the form to factory default
+     */
+    private void onClickReset(ActionEvent e) {
 
-	/**
-	 * Reset the form to factory default
-	 */
-	private void onClickReset(ActionEvent e) {
+    }
 
-	}
+    public JPanel getRootPanel() {
+        return rootPanel;
+    }
 
-	public JPanel getRootPanel() {
-		return rootPanel;
-	}
+    /**
+     * Config modified?
+     *
+     * @return Boolean
+    */
+    public boolean isModified() {
+        return ! (
+                getData().equals(SweepPreferences.getPaths())
+            &&    isSelectedDeleteDirectories()    == SweepPreferences.getDeleteDirectories()
+            &&    isSelectedDeleteHidden()        == SweepPreferences.getDeleteHidden()
+           && getIgnorePatterns().equals(SweepPreferences.getIgnorePatterns())
+        );
+    }
 
-	/**
-	 * Config modified?
-	 *
-	 * @return Boolean
-	*/
-	public boolean isModified() {
-		return ! (
-				getData().equals(SweepPreferences.getPaths())
-			&&	isSelectedDeleteDirectories()	== SweepPreferences.getDeleteDirectories()
-			&&	isSelectedDeleteHidden()		== SweepPreferences.getDeleteHidden()
-		   && getIgnorePatterns().equals(SweepPreferences.getIgnorePatterns())
-		);
-	}
+    public Boolean isSelectedDeleteDirectories() {
+        return directoriesCheckBox.isSelected();
+    }
 
-	public Boolean isSelectedDeleteDirectories() {
-		return directoriesCheckBox.isSelected();
-	}
+    public Boolean isSelectedDeleteHidden() {
+        return hiddenFilesAndDirectoriesCheckBox.isSelected();
+    }
 
-	public Boolean isSelectedDeleteHidden() {
-		return hiddenFilesAndDirectoriesCheckBox.isSelected();
-	}
+    /**
+     * @return  Ignore patterns
+     */
+    public String getIgnorePatterns() {
+        return textFieldIgnorePatterns.getText();
+    }
 
-	/**
-	 * @return  Ignore patterns
-	 */
-	public String getIgnorePatterns() {
-		return textFieldIgnorePatterns.getText();
-	}
+    /**
+     * @param str  Ignore patterns value
+     */
+    public void setIgnorePatterns(String str) {
+        textFieldIgnorePatterns.setText(str);
+    }
 
-	/**
-	 * @param str  Ignore patterns value
-	 */
-	public void setIgnorePatterns(String str) {
-		textFieldIgnorePatterns.setText(str);
-	}
+    public void setData() {
 
-	public void setData() {
+    }
 
-	}
+    /**
+     * Get selection paths
+     *
+     * @return  String
+     */
+    public String getData() {
+        TreePath[] selectionPaths  = projectTree.getSelectionModel().getSelectionPaths();
 
-	/**
-	 * Get selection paths
-	 *
-	 * @return  String
-	 */
-	public String getData() {
-		TreePath[] selectionPaths  = projectTree.getSelectionModel().getSelectionPaths();
-
-		return Arrays.toString(selectionPaths);
-	}
+        return Arrays.toString(selectionPaths);
+    }
 
    private void createUIComponents() {
-		// @todo	place custom component creation code here
-	}
+        // @todo    place custom component creation code here
+    }
 
 }

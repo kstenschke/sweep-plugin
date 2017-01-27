@@ -40,63 +40,61 @@ public class SweepPreferences {
     @NonNls
     private static final String PROPERTY_IGNORE_PATTERNS = "PluginSweep.IgnorePatterns";
 
+    /**
+     * @return The currently opened project
+     */
+    private static Project getOpenProject() {
+        Project[] projects = ProjectManager.getInstance().getOpenProjects();
 
+        return (projects.length > 0) ? projects[0] : null;
+    }
 
-	/**
-	 * @return	The currently opened project
-	 */
-	private static Project getOpenProject() {
-		Project[] projects = ProjectManager.getInstance().getOpenProjects();
+    /**
+     * @return PropertiesComponent (project level)
+     */
+    private static PropertiesComponent getPropertiesComponent() {
+        Project project = getOpenProject();
 
-		return (projects.length > 0) ? projects[0] : null;
-	}
-
-	/**
-	 * @return	PropertiesComponent (project level)
-	 */
-	private static PropertiesComponent getPropertiesComponent() {
-		Project project = getOpenProject();
-
-		return project != null ? PropertiesComponent.getInstance(project) : null;
-	}
+        return project != null ? PropertiesComponent.getInstance(project) : null;
+    }
 
     /**
      * Store preference: paths of directories to be swept
      *
-     * @param	paths Contents to be stored in paths preference
+     * @param paths	Contents to be stored in paths preference
      */
     public static void savePaths(String paths) {
-		PropertiesComponent propertiesComponent = getPropertiesComponent();
+        PropertiesComponent propertiesComponent = getPropertiesComponent();
 
-		if (propertiesComponent != null) {
-			propertiesComponent.setValue(PROPERTY_PATHS, paths);
-		}
+        if (propertiesComponent != null) {
+            propertiesComponent.setValue(PROPERTY_PATHS, paths);
+        }
     }
 
-	/**
-	 * Store preference: delete directories?
-	 *
-	 * @param	delete
-	 */
+    /**
+     * Store preference: delete directories?
+     *
+     * @param delete
+     */
     public static void saveDeleteDirectories(Boolean delete) {
-		PropertiesComponent propertiesComponent = getPropertiesComponent();
+        PropertiesComponent propertiesComponent = getPropertiesComponent();
 
-		if (propertiesComponent != null) {
-			propertiesComponent.setValue(PROPERTY_DELETE_DIRECTORIES, delete? "1":"0");
-		}
+        if (propertiesComponent != null) {
+            propertiesComponent.setValue(PROPERTY_DELETE_DIRECTORIES, delete? "1":"0");
+        }
     }
 
-	/**
-	 * Store preference: delete hidden directories and files?
-	 *
-	 * @param	delete
-	 */
+    /**
+     * Store preference: delete hidden directories and files?
+     *
+     * @param delete
+     */
     public static void saveDeleteHidden(Boolean delete) {
-		PropertiesComponent propertiesComponent = getPropertiesComponent();
+        PropertiesComponent propertiesComponent = getPropertiesComponent();
 
-		if (propertiesComponent != null) {
-			propertiesComponent.setValue(PROPERTY_DELETE_HIDDEN, delete ? "1":"0");
-		}
+        if (propertiesComponent != null) {
+            propertiesComponent.setValue(PROPERTY_DELETE_HIDDEN, delete ? "1":"0");
+        }
     }
 
     /**
@@ -105,78 +103,78 @@ public class SweepPreferences {
      * @return String
      */
     public static String getPaths() {
-		PropertiesComponent propertiesComponent = getPropertiesComponent();
-		String paths	= null;
+        PropertiesComponent propertiesComponent = getPropertiesComponent();
+        String paths    = null;
 
-		if (propertiesComponent != null) {
-			paths	= propertiesComponent.getValue(PROPERTY_PATHS);
-		}
+        if (propertiesComponent != null) {
+            paths    = propertiesComponent.getValue(PROPERTY_PATHS);
+        }
 
         return paths == null ? "" : paths;
     }
 
-	/**
-	 * Get preference: delete directories?
-	 *
-	 * @return	Boolean
-	 */
+    /**
+     * Get preference: delete directories?
+     *
+     * @return Boolean
+     */
     public static Boolean getDeleteDirectories() {
-		PropertiesComponent propertiesComponent = getPropertiesComponent();
-		Boolean delete	= false;
+        PropertiesComponent propertiesComponent = getPropertiesComponent();
+        Boolean delete    = false;
 
-		if (propertiesComponent != null) {
-			String pref	= propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES);
-			delete	= pref != null && pref.equals("1");
-		}
+        if (propertiesComponent != null) {
+            String pref    = propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES);
+            delete    = pref != null && pref.equals("1");
+        }
 
         return delete;
     }
 
-	/**
-	 * Get preference: delete hidden directories and files?
-	 *
-	 * @return	Boolean
-	 */
-	public static Boolean getDeleteHidden() {
-		PropertiesComponent propertiesComponent = getPropertiesComponent();
-		Boolean delete	= false;
+    /**
+     * Get preference: delete hidden directories and files?
+     *
+     * @return Boolean
+     */
+    public static Boolean getDeleteHidden() {
+        PropertiesComponent propertiesComponent = getPropertiesComponent();
+        Boolean delete    = false;
 
-		if (propertiesComponent != null) {
-			String pref	= propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN);
-			delete	= pref != null && pref.equals("1");
-		}
+        if (propertiesComponent != null) {
+            String pref    = propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN);
+            delete    = pref != null && pref.equals("1");
+        }
 
-		return delete;
-	}
+        return delete;
+    }
 
-	/**
-	 * Get preference: Ignore patterns
-	 *
-	 * @return	String
-	 */
-	public static String getIgnorePatterns() {
-		PropertiesComponent propertiesComponent = getPropertiesComponent();
-		String ignorePatterns	= "";
+    /**
+     * Get preference: Ignore patterns
+     *
+     * @return String
+     */
+    public static String getIgnorePatterns() {
+        PropertiesComponent propertiesComponent = getPropertiesComponent();
+        String ignorePatterns    = "";
 
-		if (propertiesComponent != null) {
-			String pref	= propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
-			ignorePatterns	= pref != null ? pref : "";
-		}
+        if (propertiesComponent != null) {
+            String pref    = propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
+            ignorePatterns    = pref != null ? pref : "";
+        }
 
-		return ignorePatterns;
-	}
+        return ignorePatterns;
+    }
 
-	/**
-	 * Store preference: ignorePatterns
-	 *
-	 * @param	ignorePatterns
-	 */
-	public static void saveIgnorePatterns(String ignorePatterns) {
-		PropertiesComponent propertiesComponent = getPropertiesComponent();
+    /**
+     * Store preference: ignorePatterns
+     *
+     * @param ignorePatterns
+     */
+    public static void saveIgnorePatterns(String ignorePatterns) {
+        PropertiesComponent propertiesComponent = getPropertiesComponent();
 
-		if (propertiesComponent != null) {
-			propertiesComponent.setValue(PROPERTY_IGNORE_PATTERNS, ignorePatterns);
-		}
-	}
+        if (propertiesComponent != null) {
+            propertiesComponent.setValue(PROPERTY_IGNORE_PATTERNS, ignorePatterns);
+        }
+    }
 
 }

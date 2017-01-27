@@ -32,105 +32,103 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
 
     private PluginConfiguration settingsPanel = null;
 
+    public JComponent createComponent() {
+        if (settingsPanel == null) {
+            settingsPanel = new PluginConfiguration();
+        }
 
+        reset();
 
-	public JComponent createComponent() {
-		if (settingsPanel == null) {
-			settingsPanel = new PluginConfiguration();
-		}
+        return settingsPanel.getRootPanel();
+    }
 
-		reset();
+    @Nls
+    public String getDisplayName() {
+        return "Sweep";
+    }
 
-		return settingsPanel.getRootPanel();
-	}
+    public boolean isModified() {
+        return settingsPanel != null && settingsPanel.isModified();
+    }
 
-	@Nls
-	public String getDisplayName() {
-		return "Sweep";
-	}
+    public void disposeUIResources() {
+        settingsPanel = null;
+    }
 
-	public boolean isModified() {
-		return settingsPanel != null && settingsPanel.isModified();
-	}
+    public void reset() {
+        if (settingsPanel != null ) {
 
-	public void disposeUIResources() {
-		settingsPanel = null;
-	}
+        }
+    }
 
-	public void reset() {
-		if (settingsPanel != null ) {
+    /**
+     * Get the icon of this {@link com.intellij.openapi.options.Configurable}.
+     */
+    public Icon getIcon() {
+        if (icon == null) {
+            icon    = new ImageIcon("/com/kstenschke/sweep/resources/images/blank32x32.png");
+        }
 
-		}
-	}
+        return icon;
+    }
 
-	/**
-	 * Get the icon of this {@link com.intellij.openapi.options.Configurable}.
-	 */
-	public Icon getIcon() {
-		if (icon == null) {
-			icon	= new ImageIcon("/com/kstenschke/sweep/resources/images/blank32x32.png");
-		}
+    /**
+     * Store project preference: directories to be swept
+     *
+     * @throws ConfigurationException
+     */
+    public void apply() throws ConfigurationException {
+        if (settingsPanel != null) {
+            String paths    = settingsPanel.getData();
+            if (paths != null) {
+                SweepPreferences.savePaths(paths);
+            }
 
-		return icon;
-	}
+            SweepPreferences.saveDeleteDirectories(settingsPanel.isSelectedDeleteDirectories());
+            SweepPreferences.saveDeleteHidden(settingsPanel.isSelectedDeleteHidden());
+            SweepPreferences.saveIgnorePatterns(settingsPanel.getIgnorePatterns());
 
-	/**
-	 * Store project preference: directories to be swept
-	 *
-	 * @throws ConfigurationException
-	 */
-	public void apply() throws ConfigurationException {
-		if (settingsPanel != null) {
-			String paths	= settingsPanel.getData();
-			if (paths != null) {
-				SweepPreferences.savePaths(paths);
-			}
+            applyGlobalSettings();
+      }
+    }
 
-			SweepPreferences.saveDeleteDirectories(settingsPanel.isSelectedDeleteDirectories());
-			SweepPreferences.saveDeleteHidden(settingsPanel.isSelectedDeleteHidden());
-			SweepPreferences.saveIgnorePatterns(settingsPanel.getIgnorePatterns());
+    public String getHelpTopic() {
+        return null;
+    }
 
-			applyGlobalSettings();
-	  }
-	}
+    private void applyGlobalSettings() {
 
-	public String getHelpTopic() {
-		return null;
-	}
+    }
 
-	private void applyGlobalSettings() {
+    public SweepSettingsComponent(Project project) {
 
-	}
-
-	public SweepSettingsComponent(Project project) {
-
-	}
+    }
 
    public void initComponent() {
 
-	}
+    }
 
-	public void disposeComponent() {
-		settingsPanel = null;
-	}
+    public void disposeComponent() {
+        settingsPanel = null;
+    }
 
-	@NotNull
-	public String getComponentName() {
-		return "Sweep";
-	}
+    @NotNull
+    public String getComponentName() {
+        return "Sweep";
+    }
 
-	/**
-	 * called when project is opened
-	 */
-	public void projectOpened() {
+    /**
+     * called when project is opened
+     */
+    public void projectOpened() {
 
-	}
+    }
 
-	/**
-	 * called when project is being closed
-	 */
-	public void projectClosed() {
+    /**
+     * called when project is being closed
+     */
+    public void projectClosed() {
 
-	}
+    }
 
 }

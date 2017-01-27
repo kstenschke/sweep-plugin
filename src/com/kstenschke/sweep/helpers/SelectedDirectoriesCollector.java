@@ -23,83 +23,76 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-
 public class SelectedDirectoriesCollector {
 
-	private final VirtualFile baseDir;
+    private final VirtualFile baseDir;
 
-	private final List<VirtualFile> selectedVFDirectories;
+    private final List<VirtualFile> selectedVFDirectories;
 
-	private String[] selectionPathStrings;
+    private String[] selectionPathStrings;
 
+    /**
+     * Constructor
+     */
+    public SelectedDirectoriesCollector(VirtualFile baseDir) {
+        this.baseDir = baseDir;
+        selectedVFDirectories = new ArrayList<VirtualFile>();
+    }
 
+    /**
+     * @return Virtual files of selected directories
+     */
+    public VirtualFile[] getSelectedVFDirectories() {
+        String selectionPathsPrefString    =  SweepPreferences.getPaths();
 
-	/**
-	 * Constructor
-	 */
-	public SelectedDirectoriesCollector(VirtualFile baseDir) {
-		this.baseDir	= baseDir;
-		selectedVFDirectories = new ArrayList<VirtualFile>();
-	}
+        if (! selectionPathsPrefString.isEmpty()) {
+            selectionPathStrings     = StringHelper.extractTreePathStringsFromPref(selectionPathsPrefString);
 
+            if (selectionPathStrings != null && selectionPathStrings.length > 0) {
+                String curPath = baseDir.getPath();
+                if (Arrays.asList(selectionPathStrings).contains(curPath)) {
+                    selectedVFDirectories.add(baseDir);
+                }
 
-	/**
-	 * @return	Virtual files of selected directories
-	 */
-	public VirtualFile[] getSelectedVFDirectories() {
-		String selectionPathsPrefString    =  SweepPreferences.getPaths();
+                this.findSelectedSubDirectories(baseDir);
 
-		if (! selectionPathsPrefString.isEmpty()) {
-			selectionPathStrings     = StringHelper.extractTreePathStringsFromPref(selectionPathsPrefString);
+                if (selectedVFDirectories != null && selectedVFDirectories.size() > 0) {
+                    return selectedVFDirectories.toArray(new VirtualFile[selectedVFDirectories.size()]);
+                }
+            }
+        }
 
-			if (selectionPathStrings != null && selectionPathStrings.length > 0) {
-				String curPath = baseDir.getPath();
-				if (Arrays.asList(selectionPathStrings).contains(curPath)) {
-					selectedVFDirectories.add(baseDir);
-				}
+        return null;
+    }
 
-				this.findSelectedSubDirectories(baseDir);
+    /**
+     * Iterate all children of given directory recursively,
+     * if any path-string equals to a TreePath in the preferences: add it to the array of selected VirtualFiles
+     *
+     * @param directory
+     */
+    private void findSelectedSubDirectories(VirtualFile directory) {
+        VirtualFile[] subDirectories = directory.getChildren();
 
-				if (selectedVFDirectories != null && selectedVFDirectories.size() > 0) {
-					return selectedVFDirectories.toArray(new VirtualFile[selectedVFDirectories.size()]);
-				}
-			}
-		}
+        for(VirtualFile curDirectoryVF: subDirectories) {
+            if (curDirectoryVF.isDirectory() /*&& ! isFileHidden(curDirectoryVF)*/) {
+                String curPath = curDirectoryVF.getPath();
 
-		return null;
-	}
+                if (Arrays.asList(selectionPathStrings).contains(curPath)) {
+                    selectedVFDirectories.add(curDirectoryVF);
+                }
 
+                findSelectedSubDirectories(curDirectoryVF);
+            }
+        }
+    }
 
-
-	/**
-	 * Iterate all children of given directory recursively,
-	 * if any path-string equals to a TreePath in the preferences: add it to the array of selected VirtualFiles
-	 *
-	 * @param	directory
-	 */
-	private void findSelectedSubDirectories(VirtualFile directory) {
-		VirtualFile[] subDirectories = directory.getChildren();
-
-		for(VirtualFile curDirectoryVF: subDirectories) {
-			if (curDirectoryVF.isDirectory() /*&& ! isFileHidden(curDirectoryVF)*/) {
-				String curPath = curDirectoryVF.getPath();
-
-				if (Arrays.asList(selectionPathStrings).contains(curPath)) {
-					selectedVFDirectories.add(curDirectoryVF);
-				}
-
-				findSelectedSubDirectories(curDirectoryVF);
-			}
-		}
-	}
-
-//	private static boolean isFileHidden(VirtualFile virtualFile) {
-//		if (virtualFile == null || !virtualFile.isValid()) return false;
-//		if (!virtualFile.isInLocalFileSystem()) return false;
+//    private static boolean isFileHidden(VirtualFile virtualFile) {
+//        if (virtualFile == null || !virtualFile.isValid()) return false;
+//        if (!virtualFile.isInLocalFileSystem()) return false;
 //
-//		File file = new File(virtualFile.getPath().replace('/', File.separatorChar));
+//        File file = new File(virtualFile.getPath().replace('/', File.separatorChar));
 //
-//		return file.getParent() != null && file.isHidden(); // Under Windows logical driver files (e.g C:\) are hidden.
-//	}
+//        return file.getParent() != null && file.isHidden(); // Under Windows logical driver files (e.g C:\) are hidden.
+//    }
 }
