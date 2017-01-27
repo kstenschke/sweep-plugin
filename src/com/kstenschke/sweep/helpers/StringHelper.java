@@ -72,7 +72,7 @@ public class StringHelper {
         treePathsPrefStr = StringHelper.removePostfixChar(treePathsPrefStr, "]");
 
         if (treePathsPrefStr != null) {
-            if(treePathsPrefStr.contains("],")) {
+            if (treePathsPrefStr.contains("],")) {
                 // There are multiple TreePath strings contained
                 String[] treePathStrings = treePathsPrefStr.split("\\]");
                 Integer count = 0;

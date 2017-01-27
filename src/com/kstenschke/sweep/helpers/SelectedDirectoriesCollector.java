@@ -74,7 +74,7 @@ public class SelectedDirectoriesCollector {
     private void findSelectedSubDirectories(VirtualFile directory) {
         VirtualFile[] subDirectories = directory.getChildren();
 
-        for(VirtualFile curDirectoryVF: subDirectories) {
+        for (VirtualFile curDirectoryVF: subDirectories) {
             if (curDirectoryVF.isDirectory() /*&& ! isFileHidden(curDirectoryVF)*/) {
                 String curPath = curDirectoryVF.getPath();
 

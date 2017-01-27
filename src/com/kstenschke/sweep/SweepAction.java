@@ -77,7 +77,7 @@ public class SweepAction extends AnAction {
         Integer[] amountDeleted = {0, 0};
         Boolean deleteHidden = SweepPreferences.getDeleteHidden();
 
-        for(String curPath: sweepPaths) {
+        for (String curPath: sweepPaths) {
             Integer[] addAmountDeleted = deleteFolderContents(curPath, false, deleteHidden);
             amountDeleted[0] += addAmountDeleted[0];
             amountDeleted[1] += addAmountDeleted[1];
@@ -91,7 +91,7 @@ public class SweepAction extends AnAction {
      * @return Does any of the "ignore patterns" match the given string?
      */
     private Boolean isMatchingIgnorePattern(String str) {
-        if(this.ignorePatterns == null ) {
+        if (this.ignorePatterns == null ) {
             this.ignorePatterns  = SweepPreferences.getIgnorePatterns().split(",");
         }
 
@@ -123,17 +123,17 @@ public class SweepAction extends AnAction {
         File[] files= folder.listFiles();
 
         //some JVMs return null for empty dirs
-        if(files != null) {
-            for(File curFile: files) {
+        if (files != null) {
+            for (File curFile: files) {
                 if (!curFile.isHidden() || deleteHidden) {
                     if (curFile.isDirectory()) {
                         Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), deleteSubFolders, deleteHidden);
 
-                        amountDeleted[0]    += addAmountDeleted[0];
-                        amountDeleted[1]    += addAmountDeleted[1];
+                        amountDeleted[0] += addAmountDeleted[0];
+                        amountDeleted[1] += addAmountDeleted[1];
                     } else {
-                        if(! isMatchingIgnorePattern(curFile.toString())) {
-                            amountDeleted[1]    += curFile.delete() ? 1:0;
+                        if (! isMatchingIgnorePattern(curFile.toString())) {
+                            amountDeleted[1] += curFile.delete() ? 1:0;
                         }
                     }
                 }
@@ -141,7 +141,7 @@ public class SweepAction extends AnAction {
         }
 
         if (removeFolderItself && (!folder.isHidden() || deleteHidden)) {
-            if(! isMatchingIgnorePattern(folder.toString())) {
+            if (! isMatchingIgnorePattern(folder.toString())) {
                 amountDeleted[0]    += folder.delete() ? 1:0;
             }
         }
