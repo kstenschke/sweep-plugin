@@ -123,7 +123,8 @@ public class SweepAction extends AnAction {
 		File folder	= new File(path);
 		File[] files= folder.listFiles();
 
-		if(files != null) { //some JVMs return null for empty dirs
+		//some JVMs return null for empty dirs
+		if(files != null) {
 			for(File curFile: files) {
 				if (!curFile.isHidden() || deleteHidden) {
 					if (curFile.isDirectory()) {

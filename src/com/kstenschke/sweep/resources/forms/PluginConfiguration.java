@@ -61,13 +61,13 @@ public class PluginConfiguration {
 	 * Initialize the form: render project tree, select nodes from project preference
 	 */
 	private void InitForm() {
-			// Init checkbox options' states
+		// Init checkbox options' states
 		directoriesCheckBox.setSelected(SweepPreferences.getDeleteDirectories());
 		hiddenFilesAndDirectoriesCheckBox.setSelected(SweepPreferences.getDeleteHidden());
 
 		textFieldIgnorePatterns.setText(SweepPreferences.getIgnorePatterns());
 
-			// Add project files tree, select directories from user's project preference
+		// Add project files tree, select directories from user's project preference
 		FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
 		FileChooserDescriptor descriptor =  new FileChooserDescriptor(false, true, false, false,false,false);
 
@@ -81,11 +81,11 @@ public class PluginConfiguration {
 
 			FileSystemTree tree = treeFactory.createFileSystemTree(project, descriptor);
 
-				// Enable multi-selection
+			// Enable multi-selection
 			projectTree   = tree.getTree();
 			projectTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
 
-				// Find+select directories in project file-tree, that are contained in preference also
+			// Find+select directories in project file-tree, that are contained in preference also
 			SelectedDirectoriesCollector selFilesCollector = new SelectedDirectoriesCollector(baseDir);
 			VirtualFile[] selectedDirectories = selFilesCollector.getSelectedVFDirectories();
 
@@ -95,12 +95,12 @@ public class PluginConfiguration {
 
 			tree.updateTree();
 
-				// Add project folders tree to settings component
+			// Add project folders tree to settings component
 			JScrollPane jscrollPane  = new JScrollPane(projectTree);
 			rootPanel.add(jscrollPane);
 		}
 
-			// Setup changeListener on checkboxes- checking delete hidden checks also delete directories
+		// Setup changeListener on checkboxes- checking delete hidden checks also delete directories
 		hiddenFilesAndDirectoriesCheckBox.addItemListener(new ItemListener() {
 			@Override
 			public void itemStateChanged(ItemEvent e) {
@@ -163,10 +163,10 @@ public class PluginConfiguration {
 	}
 
 	/**
-	* Get selection paths
-	*
-	* @return  String
-	*/
+	 * Get selection paths
+	 *
+	 * @return  String
+	 */
 	public String getData() {
 		TreePath[] selectionPaths  = projectTree.getSelectionModel().getSelectionPaths();
 
@@ -174,7 +174,7 @@ public class PluginConfiguration {
 	}
 
    private void createUIComponents() {
-//    TODO: place custom component creation code here
+		// @todo	place custom component creation code here
 	}
 
 }

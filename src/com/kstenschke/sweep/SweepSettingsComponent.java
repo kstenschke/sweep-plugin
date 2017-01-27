@@ -119,12 +119,18 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
 		return "Sweep";
 	}
 
+	/**
+	 * called when project is opened
+	 */
 	public void projectOpened() {
-// called when project is opened
+
 	}
 
+	/**
+	 * called when project is being closed
+	 */
 	public void projectClosed() {
-// called when project is being closed
+
 	}
 
 }

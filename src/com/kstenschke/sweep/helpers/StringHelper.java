@@ -38,8 +38,6 @@ public class StringHelper {
 		return removePrefixChar(sourceStr, prefixChar, true);
 	}
 
-
-
 	/**
 	 * Remove given char if it post-fixes the given string
 	 *
@@ -56,11 +54,14 @@ public class StringHelper {
 		return trailMustExist ? null : sourceStr;
 	}
 
+	/**
+	 * @param sourceStr
+	 * @param trailChar
+     * @return
+     */
 	private static String removePostfixChar(String sourceStr, String trailChar) {
 		return removePostfixChar(sourceStr, trailChar, true);
 	}
-
-
 
 	/**
 	 * @param	treePathsPrefStr	String representing an array of TreePath strings
@@ -86,14 +87,14 @@ public class StringHelper {
 				}
 
 				return treePathStrings;
-			} else {
-					// There's only one TreePath string contained
-				treePathsPrefStr	= StringHelper.removePrefixChar(treePathsPrefStr, "[");
-				treePathsPrefStr	= StringHelper.removePostfixChar(treePathsPrefStr, "]");
-				treePathsPrefStr	= treePathsPrefStr.replaceAll(", ", "\\/");
-
-				return treePathsPrefStr == null ? null : new String[] { treePathsPrefStr };
 			}
+
+			// There's only one TreePath string contained
+			treePathsPrefStr	= StringHelper.removePrefixChar(treePathsPrefStr, "[");
+			treePathsPrefStr	= StringHelper.removePostfixChar(treePathsPrefStr, "]");
+			treePathsPrefStr	= treePathsPrefStr.replaceAll(", ", "\\/");
+
+			return treePathsPrefStr == null ? null : new String[] { treePathsPrefStr };
 		}
 
 		return null;
