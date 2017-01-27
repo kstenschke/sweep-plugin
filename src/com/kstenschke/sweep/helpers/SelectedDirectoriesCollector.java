@@ -27,9 +27,9 @@ import java.util.List;
 
 public class SelectedDirectoriesCollector {
 
-	private VirtualFile baseDir;
+	private final VirtualFile baseDir;
 
-	private List<VirtualFile> selectedVFDirectories;
+	private final List<VirtualFile> selectedVFDirectories;
 
 	private String[] selectionPathStrings;
 

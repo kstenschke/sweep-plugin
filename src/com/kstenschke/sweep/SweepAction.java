@@ -23,7 +23,6 @@ import com.intellij.openapi.ui.popup.BalloonBuilder;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.awt.RelativePoint;
-import com.intellij.util.ui.UIUtil;
 import com.kstenschke.sweep.helpers.StringHelper;
 
 import javax.swing.*;
@@ -32,7 +31,7 @@ import java.io.File;
 
 public class SweepAction extends AnAction {
 
-	String[] ignorePatterns = null;
+	private String[] ignorePatterns = null;
 
 	/**
 	 * @param   event    ActionSystem event

@@ -35,7 +35,7 @@ import java.util.Arrays;
 
 public class PluginConfiguration {
 
-	public JPanel rootPanel;
+	private JPanel rootPanel;
 
 	private JPanel TopPanel;
 
