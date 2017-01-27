@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kay Stenschke
+ * Copyright 2013-2017 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package com.kstenschke.clearcache;
+package com.kstenschke.sweep;
 
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.project.Project;
-import com.kstenschke.clearcache.resources.forms.PluginConfiguration;
+import com.kstenschke.sweep.resources.forms.PluginConfiguration;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 
-public class ClearCacheSettingsComponent implements ProjectComponent, Configurable {
+public class SweepSettingsComponent implements ProjectComponent, Configurable {
 
-    private ImageIcon icon = new ImageIcon("/com/kstenschke/clearcache/resources/images/blank32x32.png");
+    private ImageIcon icon = new ImageIcon("/com/kstenschke/sweep/resources/images/blank32x32.png");
 
     private PluginConfiguration settingsPanel = null;
 
@@ -46,7 +46,7 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 
 	@Nls
 	public String getDisplayName() {
-		return "Clear Cache";
+		return "Sweep";
 	}
 
 	public boolean isModified() {
@@ -68,7 +68,7 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 	 */
 	public Icon getIcon() {
 		if (icon == null) {
-			icon	= new ImageIcon("/com/kstenschke/clearcache/resources/images/blank32x32.png");
+			icon	= new ImageIcon("/com/kstenschke/sweep/resources/images/blank32x32.png");
 		}
 
 		return icon;
@@ -82,12 +82,12 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 		if (settingsPanel != null) {
 			String paths	= settingsPanel.getData();
 			if (paths != null) {
-				ClearCachePreferences.savePaths(paths);
+				SweepPreferences.savePaths(paths);
 			}
 
-			ClearCachePreferences.saveDeleteDirectories(settingsPanel.isSelectedDeleteDirectories());
-			ClearCachePreferences.saveDeleteHidden(settingsPanel.isSelectedDeleteHidden());
-			ClearCachePreferences.saveIgnorePatterns(settingsPanel.getIgnorePatterns());
+			SweepPreferences.saveDeleteDirectories(settingsPanel.isSelectedDeleteDirectories());
+			SweepPreferences.saveDeleteHidden(settingsPanel.isSelectedDeleteHidden());
+			SweepPreferences.saveIgnorePatterns(settingsPanel.getIgnorePatterns());
 
 			applyGlobalSettings();
 	  }
@@ -101,7 +101,7 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 
 	}
 
-	public ClearCacheSettingsComponent(Project project) {
+	public SweepSettingsComponent(Project project) {
 
 	}
 
@@ -115,7 +115,7 @@ public class ClearCacheSettingsComponent implements ProjectComponent, Configurab
 
 	@NotNull
 	public String getComponentName() {
-		return "Clear Cache";
+		return "Sweep";
 	}
 
 	public void projectOpened() {

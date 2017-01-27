@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kay Stenschke
+ * Copyright 2013-2017 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kstenschke.clearcache.resources.forms;
+package com.kstenschke.sweep.resources.forms;
 
 import com.intellij.openapi.fileChooser.FileChooserDescriptor;
 import com.intellij.openapi.fileChooser.FileSystemTree;
@@ -23,8 +23,8 @@ import com.intellij.openapi.fileChooser.ex.FileSystemTreeFactoryImpl;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.VirtualFile;
-import com.kstenschke.clearcache.ClearCachePreferences;
-import com.kstenschke.clearcache.helpers.SelectedDirectoriesCollector;
+import com.kstenschke.sweep.SweepPreferences;
+import com.kstenschke.sweep.helpers.SelectedDirectoriesCollector;
 
 import javax.swing.*;
 import javax.swing.tree.TreePath;
@@ -62,10 +62,10 @@ public class PluginConfiguration {
 	 */
 	private void InitForm() {
 			// Init checkbox options' states
-		directoriesCheckBox.setSelected(ClearCachePreferences.getDeleteDirectories());
-		hiddenFilesAndDirectoriesCheckBox.setSelected(ClearCachePreferences.getDeleteHidden());
+		directoriesCheckBox.setSelected(SweepPreferences.getDeleteDirectories());
+		hiddenFilesAndDirectoriesCheckBox.setSelected(SweepPreferences.getDeleteHidden());
 
-		textFieldIgnorePatterns.setText(ClearCachePreferences.getIgnorePatterns());
+		textFieldIgnorePatterns.setText(SweepPreferences.getIgnorePatterns());
 
 			// Add project files tree, select directories from user's project preference
 		FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
@@ -129,10 +129,10 @@ public class PluginConfiguration {
 	*/
 	public boolean isModified() {
 		return ! (
-				getData().equals(ClearCachePreferences.getPaths())
-			&&	isSelectedDeleteDirectories()	== ClearCachePreferences.getDeleteDirectories()
-			&&	isSelectedDeleteHidden()		== ClearCachePreferences.getDeleteHidden()
-		   && getIgnorePatterns().equals(ClearCachePreferences.getIgnorePatterns())
+				getData().equals(SweepPreferences.getPaths())
+			&&	isSelectedDeleteDirectories()	== SweepPreferences.getDeleteDirectories()
+			&&	isSelectedDeleteHidden()		== SweepPreferences.getDeleteHidden()
+		   && getIgnorePatterns().equals(SweepPreferences.getIgnorePatterns())
 		);
 	}
 

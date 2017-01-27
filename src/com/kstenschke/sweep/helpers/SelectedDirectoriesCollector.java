@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kay Stenschke
+ * Copyright 2013-2017 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package com.kstenschke.clearcache.helpers;
+package com.kstenschke.sweep.helpers;
 
 import com.intellij.openapi.vfs.VirtualFile;
-import com.kstenschke.clearcache.ClearCachePreferences;
+import com.kstenschke.sweep.SweepPreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +48,7 @@ public class SelectedDirectoriesCollector {
 	 * @return	Virtual files of selected (=cache) directories
 	 */
 	public VirtualFile[] getSelectedVFDirectories() {
-		String selectionPathsPrefString    =  ClearCachePreferences.getPaths();
+		String selectionPathsPrefString    =  SweepPreferences.getPaths();
 
 		if (! selectionPathsPrefString.isEmpty()) {
 			selectionPathStrings     = StringHelper.extractTreePathStringsFromPref(selectionPathsPrefString);

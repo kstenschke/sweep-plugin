@@ -1,5 +1,5 @@
 <!--
-  ~ Copyright 2013 Kay Stenschke
+  ~ Copyright 2013-2017 Kay Stenschke
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -14,12 +14,11 @@
   ~ limitations under the License.
   -->
 <idea-plugin version="2">
-  <name>Clear Cache</name>
+  <name>Sweep</name>
   <description><![CDATA[
-    The plugin adds a "Clear Cache" button to the main toolbar.<br/>
-    One or more cache directories are configurable in the project settings.<br/>
-    When clicking the button, all files inside the cache directories will be deleted recursively.<br/>
-    The plugin settings allow to delete also cached directories and hidden files and directories.
+    The plugin adds a "Sweep files" button to the main toolbar.<br/>
+    One or more directories of temporary files within the current project can be selected to be emptied when sweeping.<br/>
+    The plugin settings allow to delete also hidden files and directories, and to exclude some files/directories from being swept via ignore pattern.
     <br/>
     <br/>Please note: This plugin is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     <br/>
@@ -27,36 +26,40 @@
   ]]></description>
   <vendor url="" email="info@stenschke.com">Kay Stenschke</vendor>
   <idea-version since-build="107.105"/>
-
-    <version>1.0.2</version>
-
+    <version>1.1.0</version>
     <change-notes><![CDATA[
-    1.0.2<ul>
-        <li>Extended settings with "ignore pattern" to exclude files/folders containing it, from deletion</li>
-    </ul>
-    1.0.1<ul>
-        <li>Made removal of directories and hidden directories and files optional</li>
-        <li>Refined results balloon to display amounts of deleted directories and files separately</li>
-        <li>Added instruction text to plugin configuration form</li>
-    </ul>
-    1.0.0<ul>
-        <li>Initial release</li>
+    <ul>
+        <li>1.1.0
+            <ul>
+                <li>Change plugin name to "Sweep"</li>
+                <li>Made notices darcula compatible</li>
+                <li>General code cleanup and updates</li>
+            </ul>
+        </li>
+        <li>1.0.2 Extended settings with "ignore pattern" to exclude files/folders containing it, from deletion</li>
+        <li>1.0.1
+            <ul>
+                <li>Made removal of directories and hidden directories and files optional</li>
+                <li>Refined results balloon to display amounts of deleted directories and files separately</li>
+                <li>Added instruction text to plugin configuration form</li>
+            </ul>
+        </li>
+        <li>1.0.0 Initial release of "ClearCache" plugin</li>
     </ul>
   ]]></change-notes>
-
   <application-components></application-components>
 
   <project-components>
     <component>
-        <implementation-class>com.kstenschke.clearcache.ClearCacheSettingsComponent</implementation-class>
+        <implementation-class>com.kstenschke.sweep.SweepSettingsComponent</implementation-class>
         <loadForDefaultProject/>
     </component>
   </project-components>
 
   <actions>
-    <group id="Clearcache">
+    <group id="Sweep">
         <separator/>
-        <action id="ClearCache" class="com.kstenschke.clearcache.ClearCacheAction" text="Clear Cache(s)" description="Clear Cache(s)" icon="resources/images/broom.png">
+        <action id="Sweep" class="com.kstenschke.sweep.SweepAction" text="Sweep Files" description="Delete temporary files" icon="resources/images/broom.png">
         </action>
 
         <add-to-group group-id="MainToolBar" anchor="after" relative-to-action="Synchronize"/>

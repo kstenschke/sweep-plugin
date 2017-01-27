@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 Kay Stenschke
+ * Copyright 2013-2017 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.kstenschke.clearcache;
+package com.kstenschke.sweep;
 
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -22,14 +22,13 @@ import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.BalloonBuilder;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.ui.awt.RelativePoint;
-import com.kstenschke.clearcache.helpers.StringHelper;
+import com.kstenschke.sweep.helpers.StringHelper;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.util.Arrays;
 
-public class ClearCacheAction extends AnAction {
+public class SweepAction extends AnAction {
 
 	String[] ignorePatterns = null;
 
@@ -39,7 +38,7 @@ public class ClearCacheAction extends AnAction {
     public void actionPerformed(AnActionEvent event) {
 		String[] cachePaths = {};
 
-		String cachePathsPrefString	= ClearCachePreferences.getPaths();
+		String cachePathsPrefString	= SweepPreferences.getPaths();
 		if (cachePathsPrefString != null && ! cachePathsPrefString.isEmpty()) {
 			cachePaths  = StringHelper.extractTreePathStringsFromPref(cachePathsPrefString);
 		}
@@ -47,7 +46,7 @@ public class ClearCacheAction extends AnAction {
 		if (cachePaths == null || cachePaths.length == 0) {
 			JOptionPane.showMessageDialog(null, "Please configure cache path(s) in the plugin preferences.");
 		} else {
-			Integer[] amountDeleted = this.clearFoldersContent(cachePaths);
+			Integer[] amountDeleted = this.sweepFoldersContent(cachePaths);
 
 			Balloon.Position pos = Balloon.Position.below;
 			String balloonText   = "Deleted " + amountDeleted[0] + " directories and " + amountDeleted[1] + " files";
@@ -72,9 +71,9 @@ public class ClearCacheAction extends AnAction {
 	 * @param	cachePaths		Cache directories paths from properties component preferences
 	 * @return	Array of integers: amount of deleted 1. folders, 2. files
 	 */
-	private Integer[] clearFoldersContent(String[] cachePaths) {
+	private Integer[] sweepFoldersContent(String[] cachePaths) {
 		Integer[] amountDeleted = {0, 0};
-		Boolean deleteHidden	= ClearCachePreferences.getDeleteHidden();
+		Boolean deleteHidden	= SweepPreferences.getDeleteHidden();
 
 		for(String curPath: cachePaths) {
 			Integer[] addAmountDeleted = deleteFolderContents(curPath, false, deleteHidden);
@@ -91,7 +90,7 @@ public class ClearCacheAction extends AnAction {
 	 */
 	private Boolean isMatchingIgnorePattern(String str) {
 		if(this.ignorePatterns == null ) {
-			this.ignorePatterns  = ClearCachePreferences.getIgnorePatterns().split(",");
+			this.ignorePatterns  = SweepPreferences.getIgnorePatterns().split(",");
 		}
 
 		if (this.ignorePatterns.length > 0) {
@@ -116,7 +115,7 @@ public class ClearCacheAction extends AnAction {
 	 */
 	private Integer[] deleteFolderContents(String path, Boolean removeFolderItself, Boolean deleteHidden) {
 		Integer[] amountDeleted = {0, 0};
-		Boolean deleteSubFolders= (removeFolderItself || deleteHidden) ? true : ClearCachePreferences.getDeleteDirectories();
+		Boolean deleteSubFolders= (removeFolderItself || deleteHidden) ? true : SweepPreferences.getDeleteDirectories();
 
 		File folder	= new File(path);
 		File[] files= folder.listFiles();
