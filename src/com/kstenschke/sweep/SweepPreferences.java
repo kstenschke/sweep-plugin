@@ -61,7 +61,7 @@ public class SweepPreferences {
 	}
 
     /**
-     * Store preference: paths of cache directories
+     * Store preference: paths of directories to be swept
      *
      * @param	paths Contents to be stored in paths preference
      */
@@ -100,7 +100,7 @@ public class SweepPreferences {
     }
 
     /**
-     * Get preference: paths of cache directories
+     * Get preference: paths of directories to be swept
      *
      * @return String
      */

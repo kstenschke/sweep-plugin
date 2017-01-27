@@ -45,7 +45,7 @@ public class SelectedDirectoriesCollector {
 
 
 	/**
-	 * @return	Virtual files of selected (=cache) directories
+	 * @return	Virtual files of selected directories
 	 */
 	public VirtualFile[] getSelectedVFDirectories() {
 		String selectionPathsPrefString    =  SweepPreferences.getPaths();

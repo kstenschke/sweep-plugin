@@ -75,7 +75,8 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
 	}
 
 	/**
-	 * Store project preference: cache folder(s)
+	 * Store project preference: directories to be swept
+	 *
 	 * @throws ConfigurationException
 	 */
 	public void apply() throws ConfigurationException {

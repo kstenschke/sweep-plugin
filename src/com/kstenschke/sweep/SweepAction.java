@@ -36,17 +36,17 @@ public class SweepAction extends AnAction {
 	 * @param   event    ActionSystem event
 	 */
     public void actionPerformed(AnActionEvent event) {
-		String[] cachePaths = {};
+		String[] sweepPaths = {};
 
-		String cachePathsPrefString	= SweepPreferences.getPaths();
-		if (cachePathsPrefString != null && ! cachePathsPrefString.isEmpty()) {
-			cachePaths  = StringHelper.extractTreePathStringsFromPref(cachePathsPrefString);
+		String sweepPathsPrefString	= SweepPreferences.getPaths();
+		if (sweepPathsPrefString != null && ! sweepPathsPrefString.isEmpty()) {
+			sweepPaths  = StringHelper.extractTreePathStringsFromPref(sweepPathsPrefString);
 		}
 
-		if (cachePaths == null || cachePaths.length == 0) {
-			JOptionPane.showMessageDialog(null, "Please configure cache path(s) in the plugin preferences.");
+		if (sweepPaths == null || sweepPaths.length == 0) {
+			JOptionPane.showMessageDialog(null, "Please configure path(s) to be swept in the plugin preferences.");
 		} else {
-			Integer[] amountDeleted = this.sweepFoldersContent(cachePaths);
+			Integer[] amountDeleted = this.sweepFoldersContent(sweepPaths);
 
 			Balloon.Position pos = Balloon.Position.below;
 			String balloonText   = "Deleted " + amountDeleted[0] + " directories and " + amountDeleted[1] + " files";
@@ -68,14 +68,14 @@ public class SweepAction extends AnAction {
 	/**
 	 * Remove contents of given directories
 	 *
-	 * @param	cachePaths		Cache directories paths from properties component preferences
+	 * @param	sweepPaths		Directory paths to be sweeped, from properties component preferences
 	 * @return	Array of integers: amount of deleted 1. folders, 2. files
 	 */
-	private Integer[] sweepFoldersContent(String[] cachePaths) {
+	private Integer[] sweepFoldersContent(String[] sweepPaths) {
 		Integer[] amountDeleted = {0, 0};
 		Boolean deleteHidden	= SweepPreferences.getDeleteHidden();
 
-		for(String curPath: cachePaths) {
+		for(String curPath: sweepPaths) {
 			Integer[] addAmountDeleted = deleteFolderContents(curPath, false, deleteHidden);
 			amountDeleted[0]	+= addAmountDeleted[0];
 			amountDeleted[1]	+= addAmountDeleted[1];
