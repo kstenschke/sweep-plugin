@@ -16,6 +16,9 @@
 
 package com.kstenschke.sweep;
 
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.popup.Balloon;
@@ -92,12 +95,12 @@ public class SweepAction extends AnAction {
      */
     private Boolean isMatchingIgnorePattern(String str) {
         if (this.ignorePatterns == null ) {
-            this.ignorePatterns  = SweepPreferences.getIgnorePatterns().split(",");
+            this.ignorePatterns = SweepPreferences.getIgnorePatterns().split(",");
         }
 
         if (this.ignorePatterns.length > 0) {
             for (String ignorePattern : this.ignorePatterns) {
-                if (str.contains(ignorePattern)) {
+                if (ignorePattern.length() > 0 && str.contains(ignorePattern)) {
                     return true;
                 }
             }
@@ -122,23 +125,38 @@ public class SweepAction extends AnAction {
         File folder = new File(path);
         File[] files= folder.listFiles();
 
-        //some JVMs return null for empty dirs
+        // some JVMs return null for empty dirs
         if (files != null) {
             for (File curFile: files) {
+//                String message = "sweeping: " + folder.toString() + curFile.toString();
+//                Notifications.Bus.notify(new Notification("Sweep", "deleteFolderContents", message, NotificationType.INFORMATION));
+
                 if (!curFile.isHidden() || deleteHidden) {
                     if (curFile.isDirectory()) {
+                        // sweep sub directory
                         Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), deleteSubFolders, deleteHidden);
 
                         amountDeleted[0] += addAmountDeleted[0];
                         amountDeleted[1] += addAmountDeleted[1];
-                    } else {
-                        if (! isMatchingIgnorePattern(curFile.toString())) {
-                            amountDeleted[1] += curFile.delete() ? 1:0;
-                        }
+                    } else if (! isMatchingIgnorePattern(curFile.toString())) {
+                        // attempt delete file
+                        boolean isDeleted = curFile.delete();
+                        amountDeleted[1] += isDeleted ? 1 : 0;
+
+                        /* if (!isDeleted) {
+                            String message = "failed to delete file: " + folder.toString() + curFile.toString();
+                            Notifications.Bus.notify(new Notification("Sweep", "deleteFolderContents", message, NotificationType.INFORMATION));
+                        } else {
+                            String message = "deleted file: " + folder.toString() + curFile.toString();
+                            Notifications.Bus.notify(new Notification("Sweep", "deleteFolderContents", message, NotificationType.INFORMATION));
+                        }*/
                     }
                 }
             }
-        }
+        } /* else {
+            String message = "file is null in: " + folder.toString();
+            Notifications.Bus.notify(new Notification("Sweep", "deleteFolderContents", message, NotificationType.INFORMATION));
+        }*/
 
         if (removeFolderItself && (!folder.isHidden() || deleteHidden)) {
             if (! isMatchingIgnorePattern(folder.toString())) {
