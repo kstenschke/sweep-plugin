@@ -23,6 +23,9 @@ h2. Credits
 
 The icons used in this plugin are part of the "Fugue iconset by p.yusukekamiyamane":http://p.yusukekamiyamane.com/
 
+h2. Changelog
+
+Read full changelog: https://github.com/kstenschke/sweep-plugin/blob/master/CHANGELOG.textile
 
 h2. License
 
