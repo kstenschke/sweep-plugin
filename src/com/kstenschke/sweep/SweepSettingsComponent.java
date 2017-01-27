@@ -62,7 +62,7 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
     }
 
     /**
-     * Get the icon of this {@link com.intellij.openapi.options.Configurable}.
+     * Get the icon of this {@link Configurable}.
      */
     public Icon getIcon() {
         if (icon == null) {
