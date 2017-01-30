@@ -9,7 +9,7 @@ h2. Description
 The plugin adds a button to the main toolbar, which allows to quickly sweep selected temporary files and directories within your project.
 
 * One or more folders of temporary files within the current project are configurable in the project settings
-* The plugin settings allow to delete also hidden files and directories
+* The settings allow to de/activated deletion of hidden files and directories
 * Specific files/directories can be excluded from deletion using ignore-patterns
 
 
