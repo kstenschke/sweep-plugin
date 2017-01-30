@@ -4,19 +4,19 @@ Source code of the intellij IDEA "Sweep plugin".
 This is a plugin for the various intellij IDEs, working in IDEA, PhpStorm, AppCode, etc.
 
 
-h2. Please note
-
-This plugin is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-
-
 h2. Description
 
-The plugin adds a "Sweep" button to the main toolbar.
-One or more folders of temporary files within the current project are configurable in the project settings.
-When clicking the button, all files inside selected directories will be deleted recursively.
-The plugin settings allow to delete also hidden files and directories, and to exclude some files/directories from deletion using ignore-patterns.
+The plugin adds a button to the main toolbar, which allows to quickly sweep selected temporary files and directories within your project.
 
-Please note: the plugin is a tool for deleting configured directories and files, it is NOT a shortcut to remotely evoke clearing the cache of a specific browser or other application.
+* One or more folders of temporary files within the current project are configurable in the project settings
+* The plugin settings allow to delete also hidden files and directories
+* Specific files/directories can be excluded from deletion using ignore-patterns
+
+
+h2. Please note
+
+The plugin is a tool for deleting configured directories and files located within your project, it is NOT a shortcut to remotely evoke clearing the cache of a specific browser or other application.
+This plugin is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 
 
 h2. Credits
