@@ -13,7 +13,7 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<idea-plugin version="2">
+<idea-plugin url="https://plugins.jetbrains.com/idea/plugin/9434-sweep" version="2">
   <name>Sweep</name>
   <description><![CDATA[
     The plugin adds a "Sweep files" button to the main toolbar.<br/>
