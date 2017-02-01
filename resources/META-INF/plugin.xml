@@ -72,7 +72,7 @@
                 class="com.kstenschke.sweep.SweepAction"
                 text="Sweep Files"
                 description="Sweep files/directories"
-                icon="/com/kstenschke/sweep/resources/icons/broom@2x.png">
+                icon="/com/kstenschke/sweep/resources/icons/broom.png">
             <add-to-group group-id="MainToolBar" anchor="after" relative-to-action="Synchronize"/>
         </action>
     </actions>

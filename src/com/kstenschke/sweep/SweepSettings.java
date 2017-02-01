@@ -17,7 +17,6 @@
 package com.kstenschke.sweep;
 
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.components.*;
 import com.intellij.openapi.components.ApplicationComponent;
 import com.intellij.openapi.options.Configurable;
 import com.kstenschke.sweep.resources.forms.SweepConfiguration;
