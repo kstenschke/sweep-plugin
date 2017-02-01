@@ -50,7 +50,7 @@ public class SweepAction extends AnAction {
             Integer[] amountDeleted = this.sweepFoldersContent(sweepPaths);
 
             Balloon.Position pos = Balloon.Position.below;
-            String balloonText   = "Deleted " + amountDeleted[0] + " directories and " + amountDeleted[1] + " files";
+            String balloonText   = "Deleted " + amountDeleted[1] + " files / " + amountDeleted[0] + " directories";
 
             JBColor backgroundColor = new JBColor(new Color(245, 245, 245), new Color(60, 63, 65));
             BalloonBuilder builder = JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(balloonText, null, backgroundColor, null);
@@ -64,6 +64,11 @@ public class SweepAction extends AnAction {
             RelativePoint balloonPosition = new RelativePoint(new Point(x, y));
 
             balloon.show(balloonPosition, pos);
+
+//            Project project = IdeHelper.getOpenProject();
+//            if (project != null) {
+//                ProjectView.getInstance(project).refresh();
+//            }
         }
     }
 

@@ -17,7 +17,7 @@
 package com.kstenschke.sweep;
 
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ProjectManager;
+import com.kstenschke.sweep.helpers.IdeHelper;
 import org.jetbrains.annotations.NonNls;
 import com.intellij.ide.util.PropertiesComponent;
 
@@ -41,19 +41,10 @@ public class SweepPreferences {
     private static final String PROPERTY_IGNORE_PATTERNS = "PluginSweep.IgnorePatterns";
 
     /**
-     * @return The currently opened project
-     */
-    private static Project getOpenProject() {
-        Project[] projects = ProjectManager.getInstance().getOpenProjects();
-
-        return (projects.length > 0) ? projects[0] : null;
-    }
-
-    /**
      * @return PropertiesComponent (project level)
      */
     private static PropertiesComponent getPropertiesComponent() {
-        Project project = getOpenProject();
+        Project project = IdeHelper.getOpenProject();
 
         return project != null ? PropertiesComponent.getInstance(project) : null;
     }
