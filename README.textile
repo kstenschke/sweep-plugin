@@ -1,7 +1,7 @@
 h1. Sweep Plugin
 
 Source code of the intellij IDEA "Sweep plugin".
-This is a plugin for the various Jetbrains IDEs, working in IDEA, PhpStorm, AppCode, etc.
+This is a plugin for the various Jetbrains IDEs, working in IntelliJ IDEA, PhpStorm, WebStorm, PyCharm, RubyMine, AppCode, CLion, Gogland, DataGrip, Rider and Android Studio.
 
 
 h2. Description
