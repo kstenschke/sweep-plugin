@@ -14,8 +14,8 @@
   ~ limitations under the License.
   -->
 <idea-plugin url="https://plugins.jetbrains.com/idea/plugin/9434-sweep" version="2">
-  <name>Sweep</name>
-  <description><![CDATA[
+    <name>Sweep</name>
+    <description><![CDATA[
     The plugin adds a "Sweep files" button to the main toolbar.<br/>
     One or more directories of temporary files within the current project can be selected to be emptied when sweeping.<br/>
     The plugin settings allow to delete also hidden files and directories, and to exclude some files/directories from being swept via ignore pattern.
@@ -24,11 +24,12 @@
     <br/>
     <br/>The icons used in this plugin are part of the Fugue iconset (http://p.yusukekamiyamane.com/)
   ]]></description>
-  <vendor url="" email="info@stenschke.com">Kay Stenschke</vendor>
-  <idea-version since-build="107.105"/>
-    <version>1.1.0</version>
+    <vendor url="" email="info@stenschke.com">Kay Stenschke</vendor>
+    <version>1.1.1</version>
+
     <change-notes><![CDATA[
     <ul>
+        <li>1.1.1 Made OpenApi >= 2016.1 compatible (separated ProjectComponent and Configurable)</li>
         <li>1.1.0
             <ul>
                 <li>Made notices darcula compatible</li>
@@ -47,26 +48,33 @@
         <li>1.0.0 Initial release of "ClearCache" plugin</li>
     </ul>
   ]]></change-notes>
-  <application-components></application-components>
 
-  <project-components>
-    <component>
-        <implementation-class>com.kstenschke.sweep.SweepSettingsComponent</implementation-class>
-        <loadForDefaultProject/>
-    </component>
-  </project-components>
+    <!-- see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
+    <idea-version since-build="8000"/>
 
-  <actions>
-    <action id="Sweep"
-            class="com.kstenschke.sweep.SweepAction"
-            text="Sweep Files"
-            description="Sweep files/directories"
-            icon="/com/kstenschke/sweep/resources/icons/broom@2x.png">
-        <add-to-group group-id="MainToolBar" anchor="after" relative-to-action="Synchronize"/>
-    </action>
-  </actions>
+    <depends>com.intellij.modules.lang</depends>
 
-  <extensions defaultExtensionNs="com.intellij"></extensions>
+    <application-components>
+        <component>
+            <implementation-class>com.kstenschke.sweep.SweepSettings</implementation-class>
+            <interface-class>com.kstenschke.sweep.SweepSettings</interface-class>
+        </component>
+    </application-components>
 
-  <depends>com.intellij.modules.lang</depends>
+    <project-components/>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationConfigurable id="Sweep" displayName="Sweep" instance="com.kstenschke.sweep.SweepConfigurable"/>
+    </extensions>
+
+    <actions>
+        <action id="Sweep"
+                class="com.kstenschke.sweep.SweepAction"
+                text="Sweep Files"
+                description="Sweep files/directories"
+                icon="/com/kstenschke/sweep/resources/icons/broom@2x.png">
+            <add-to-group group-id="MainToolBar" anchor="after" relative-to-action="Synchronize"/>
+        </action>
+    </actions>
+
 </idea-plugin>

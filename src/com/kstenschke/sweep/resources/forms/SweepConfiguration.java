@@ -32,7 +32,7 @@ import javax.swing.tree.TreeSelectionModel;
 import java.awt.event.*;
 import java.util.Arrays;
 
-public class PluginConfiguration {
+public class SweepConfiguration {
 
     private JPanel rootPanel;
 
@@ -51,7 +51,7 @@ public class PluginConfiguration {
     /**
      * Constructor
      */
-    public PluginConfiguration() {
+    public SweepConfiguration() {
         InitForm();
     }
 
@@ -70,43 +70,45 @@ public class PluginConfiguration {
         FileChooserDescriptor descriptor =  new FileChooserDescriptor(false, true, false, false,false,false);
 
         Project[] projects = ProjectManager.getInstance().getOpenProjects();
-        Project project = projects[0];
+        if (projects.length > 0) {
+            Project project = projects[0];
 
-        if (project != null) {
-            VirtualFile baseDir  = project.getBaseDir();
-            descriptor.setRoots(baseDir);
+            if (project != null) {
+                VirtualFile baseDir = project.getBaseDir();
+                descriptor.setRoots(baseDir);
 //            descriptor.setIsTreeRootVisible(true);
 
-            FileSystemTree tree = treeFactory.createFileSystemTree(project, descriptor);
+                FileSystemTree tree = treeFactory.createFileSystemTree(project, descriptor);
 
-            // Enable multi-selection
-            projectTree   = tree.getTree();
-            projectTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
+                // Enable multi-selection
+                projectTree = tree.getTree();
+                projectTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
 
-            // Find+select directories in project file-tree, that are contained in preference also
-            SelectedDirectoriesCollector selFilesCollector = new SelectedDirectoriesCollector(baseDir);
-            VirtualFile[] selectedDirectories = selFilesCollector.getSelectedVFDirectories();
+                // Find+select directories in project file-tree, that are contained in preference also
+                SelectedDirectoriesCollector selFilesCollector = new SelectedDirectoriesCollector(baseDir);
+                VirtualFile[] selectedDirectories = selFilesCollector.getSelectedVFDirectories();
 
-            if (selectedDirectories != null) {
-                tree.select(selectedDirectories, null);
-            }
-
-            tree.updateTree();
-
-            // Add project folders tree to settings component
-            JScrollPane jscrollPane  = new JScrollPane(projectTree);
-            rootPanel.add(jscrollPane);
-        }
-
-        // Setup changeListener on checkboxes- checking delete hidden checks also delete directories
-        hiddenFilesAndDirectoriesCheckBox.addItemListener(new ItemListener() {
-            @Override
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    directoriesCheckBox.setSelected(true);
+                if (selectedDirectories != null) {
+                    tree.select(selectedDirectories, null);
                 }
+
+                tree.updateTree();
+
+                // Add project folders tree to settings component
+                JScrollPane jscrollPane = new JScrollPane(projectTree);
+                rootPanel.add(jscrollPane);
             }
-        });
+
+            // Setup changeListener on checkboxes- checking delete hidden checks also delete directories
+            hiddenFilesAndDirectoriesCheckBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (e.getStateChange() == ItemEvent.SELECTED) {
+                        directoriesCheckBox.setSelected(true);
+                    }
+                }
+            });
+        }
     }
 
     /**

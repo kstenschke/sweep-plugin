@@ -16,60 +16,45 @@
 
 package com.kstenschke.sweep;
 
-import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
-import com.intellij.openapi.project.Project;
-import com.kstenschke.sweep.resources.forms.PluginConfiguration;
+import com.kstenschke.sweep.resources.forms.SweepConfiguration;
 import org.jetbrains.annotations.Nls;
-import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
-public class SweepSettingsComponent implements ProjectComponent, Configurable {
+public class SweepConfigurable implements Configurable {
 
-    private ImageIcon icon = new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png");
-
-    private PluginConfiguration settingsPanel = null;
-
-    public JComponent createComponent() {
-        if (settingsPanel == null) {
-            settingsPanel = new PluginConfiguration();
-        }
-
-        reset();
-
-        return settingsPanel.getRootPanel();
-    }
+    private SweepConfiguration settingsPanel;
 
     @Nls
+    @Override
     public String getDisplayName() {
         return "Sweep";
     }
 
-    public boolean isModified() {
-        return settingsPanel != null && settingsPanel.isModified();
+    @Nullable
+    @Override
+    public String getHelpTopic() {
+        return null;
     }
 
-    public void disposeUIResources() {
-        settingsPanel = null;
-    }
-
-    public void reset() {
-//        if (settingsPanel != null ) {
-//
-//        }
-    }
-
-    /**
-     * Get the icon of this {@link Configurable}.
-     */
-    public Icon getIcon() {
-        if (icon == null) {
-            icon = new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png");
+    @Nullable
+    @Override
+    public JComponent createComponent() {
+        if (settingsPanel == null) {
+            settingsPanel = new SweepConfiguration();
         }
 
-        return icon;
+//        reset();
+
+        return settingsPanel.getRootPanel();
+    }
+
+    @Override
+    public boolean isModified() {
+        return settingsPanel != null && settingsPanel.isModified();
     }
 
     /**
@@ -77,6 +62,7 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
      *
      * @throws ConfigurationException
      */
+    @Override
     public void apply() throws ConfigurationException {
         if (settingsPanel != null) {
             String paths = settingsPanel.getData();
@@ -87,48 +73,18 @@ public class SweepSettingsComponent implements ProjectComponent, Configurable {
             SweepPreferences.saveDeleteDirectories(settingsPanel.isSelectedDeleteDirectories());
             SweepPreferences.saveDeleteHidden(settingsPanel.isSelectedDeleteHidden());
             SweepPreferences.saveIgnorePatterns(settingsPanel.getIgnorePatterns());
-
-            applyGlobalSettings();
-      }
+        }
     }
 
-    public String getHelpTopic() {
-        return null;
+    @Override
+    public void reset() {
+//        if (settingsPanel != null ) {
+//
+//        }
     }
 
-    private void applyGlobalSettings() {
-
-    }
-
-    public SweepSettingsComponent(Project project) {
-
-    }
-
-   public void initComponent() {
-
-    }
-
-    public void disposeComponent() {
+    public void disposeUIResources() {
         settingsPanel = null;
-    }
-
-    @NotNull
-    public String getComponentName() {
-        return "Sweep";
-    }
-
-    /**
-     * called when project is opened
-     */
-    public void projectOpened() {
-
-    }
-
-    /**
-     * called when project is being closed
-     */
-    public void projectClosed() {
-
     }
 
 }
