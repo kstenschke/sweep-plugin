@@ -17,8 +17,7 @@
     <name>Sweep</name>
     <description><![CDATA[
     The plugin adds a "Sweep files" button to the main toolbar.<br/>
-    One or more directories of temporary files within the current project can be selected to be emptied when sweeping.
-    The plugin settings allow to delete also hidden files and directories, and to exclude some files/directories from being swept via ignore pattern.
+    One or more directories of temporary files within the current project can be configured (in the plugin settings) to be emptied when sweeping. The plugin settings allow to delete also hidden files and directories, and to exclude some files/directories from being swept via ignore pattern.
     <br/>
     <br/>Please note: This plugin is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     <br/>
