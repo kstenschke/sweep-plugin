@@ -23,6 +23,7 @@ import com.intellij.openapi.fileChooser.ex.FileSystemTreeFactoryImpl;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.ui.components.JBScrollPane;
 import com.kstenschke.sweep.SweepPreferences;
 import com.kstenschke.sweep.helpers.SelectedDirectoriesCollector;
 
@@ -95,8 +96,8 @@ public class SweepConfiguration {
                 tree.updateTree();
 
                 // Add project folders tree to settings component
-                JScrollPane jscrollPane = new JScrollPane(projectTree);
-                rootPanel.add(jscrollPane);
+                JBScrollPane jbScrollPane = new JBScrollPane(projectTree);
+                rootPanel.add(jbScrollPane);
             }
 
             // Setup changeListener on checkboxes- checking delete hidden checks also delete directories

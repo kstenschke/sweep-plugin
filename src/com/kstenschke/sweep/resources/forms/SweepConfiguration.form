@@ -22,7 +22,7 @@
             </constraints>
             <properties>
               <icon value="general/information.png"/>
-              <text value="Sweeping does delete all files inside the selected directories (and contained sub directories) recursively."/>
+              <text value="Sweeping deletes all files inside the selected directories (and contained sub directories) recursively."/>
             </properties>
           </component>
           <hspacer id="cc6f1">

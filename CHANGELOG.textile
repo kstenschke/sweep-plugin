@@ -1,5 +1,7 @@
 Sweep Plugin - Changelog
 
+* 1.2.0
+    ** Added refresh of project tree after sweeping
 * 1.1.1
     ** Made OpenApi >= 2016.1 compatible (separated ProjectComponent and Configurable)
 * 1.1.0

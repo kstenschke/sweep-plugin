@@ -21,6 +21,7 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.BalloonBuilder;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.awt.RelativePoint;
 import com.kstenschke.sweep.helpers.StringHelper;
@@ -65,10 +66,7 @@ public class SweepAction extends AnAction {
 
             balloon.show(balloonPosition, pos);
 
-//            Project project = IdeHelper.getOpenProject();
-//            if (project != null) {
-//                ProjectView.getInstance(project).refresh();
-//            }
+            VirtualFileManager.getInstance().asyncRefresh(null);
         }
     }
 

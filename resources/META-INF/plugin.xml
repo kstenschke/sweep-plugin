@@ -25,10 +25,11 @@
     <br/>The icons used in this plugin are part of the Fugue iconset (http://p.yusukekamiyamane.com/)
   ]]></description>
     <vendor url="" email="info@stenschke.com">Kay Stenschke</vendor>
-    <version>1.1.1</version>
+    <version>1.2.0</version>
 
     <change-notes><![CDATA[
     <ul>
+        <li>1.2.0 Added refresh of project tree after sweeping</li>
         <li>1.1.1 Made OpenApi >= 2016.1 compatible (separated ProjectComponent and Configurable)</li>
         <li>1.1.0
             <ul>
@@ -45,7 +46,6 @@
                 <li>Added instruction text to plugin configuration form</li>
             </ul>
         </li>
-        <li>1.0.0 Initial release of "ClearCache" plugin</li>
     </ul>
   ]]></change-notes>
 
