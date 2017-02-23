@@ -1,5 +1,8 @@
 Sweep Plugin - Changelog
 
+* 1.2.1
+    ** UI (Settings) and code cleanup
+    ** Bugfix: Made sweeping by default non-recursive (was sweeping sub-directories by default)
 * 1.2.0
     ** Added refresh of project tree after sweeping
 * 1.1.1

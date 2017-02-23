@@ -24,10 +24,16 @@
     <br/>The icons used in this plugin are part of the Fugue iconset (http://p.yusukekamiyamane.com/)
   ]]></description>
     <vendor url="" email="info@stenschke.com">Kay Stenschke</vendor>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
 
     <change-notes><![CDATA[
     <ul>
+        <li>1.2.1
+            <ul>
+                <li>Improved UI (Settings)</li>
+                <li>Bugfix: Made sweeping non-recursive (was sweeping contents of sub-directories by default)</li>
+            </ul>
+        </li>
         <li>1.2.0 Added refresh of project tree after sweeping</li>
         <li>1.1.1 Made OpenApi >= 2016.1 compatible (separated ProjectComponent and Configurable)</li>
         <li>1.1.0
@@ -38,13 +44,6 @@
             </ul>
         </li>
         <li>1.0.2 Extended settings with "ignore pattern" to exclude files/folders containing it, from deletion</li>
-        <li>1.0.1
-            <ul>
-                <li>Made removal of directories and hidden directories and files optional</li>
-                <li>Refined results balloon to display amounts of deleted directories and files separately</li>
-                <li>Added instruction text to plugin configuration form</li>
-            </ul>
-        </li>
     </ul>
   ]]></change-notes>
 
