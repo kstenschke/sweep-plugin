@@ -78,6 +78,7 @@ public class SweepAction extends AnAction {
      */
     private Integer[] sweepFoldersContent(String[] sweepPaths) {
         Integer[] amountDeleted = {0, 0};
+
         Boolean deleteHidden = SweepPreferences.getDeleteHidden();
 
         for (String curPath: sweepPaths) {
@@ -123,44 +124,32 @@ public class SweepAction extends AnAction {
         Boolean deleteSubFolders= (removeFolderItself || deleteHidden) ? true : SweepPreferences.getDeleteDirectories();
 
         File folder = new File(path);
-        File[] files= folder.listFiles();
-
-        // some JVMs return null for empty dirs
-        if (files != null) {
-            for (File curFile: files) {
-//                String message = "sweeping: " + folder.toString() + curFile.toString();
-//                Notifications.Bus.notify(new Notification("Sweep", "deleteFolderContents", message, NotificationType.INFORMATION));
-
-                if (!curFile.isHidden() || deleteHidden) {
-                    if (curFile.isDirectory()) {
-                        // sweep sub directory
-                        Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), deleteSubFolders, deleteHidden);
-
-                        amountDeleted[0] += addAmountDeleted[0];
-                        amountDeleted[1] += addAmountDeleted[1];
-                    } else if (! isMatchingIgnorePattern(curFile.toString())) {
-                        // attempt delete file
-                        boolean isDeleted = curFile.delete();
-                        amountDeleted[1] += isDeleted ? 1 : 0;
-
-                        /* if (!isDeleted) {
-                            String message = "failed to delete file: " + folder.toString() + curFile.toString();
-                            Notifications.Bus.notify(new Notification("Sweep", "deleteFolderContents", message, NotificationType.INFORMATION));
+        if (folder.exists()) {
+            File[] files= folder.listFiles();
+            if (files != null) {
+                // some JVMs return null for empty directories
+                for (File curFile: files) {
+                    if (!isMatchingIgnorePattern(curFile.toString()) && (!curFile.isHidden() || deleteHidden)) {
+                        if (curFile.isDirectory()) {
+                            if (deleteSubFolders) {
+                                // sweep contents of sub directory, than sub-directory itself
+                                Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), true, true);
+                                amountDeleted[0] += addAmountDeleted[0];
+                                amountDeleted[1] += addAmountDeleted[1];
+                            }
                         } else {
-                            String message = "deleted file: " + folder.toString() + curFile.toString();
-                            Notifications.Bus.notify(new Notification("Sweep", "deleteFolderContents", message, NotificationType.INFORMATION));
-                        }*/
+                            // attempt delete file
+                            boolean isDeleted = curFile.delete();
+                            amountDeleted[1] += isDeleted ? 1 : 0;
+                        }
                     }
                 }
             }
-        } /* else {
-            String message = "file is null in: " + folder.toString();
-            Notifications.Bus.notify(new Notification("Sweep", "deleteFolderContents", message, NotificationType.INFORMATION));
-        }*/
+        }
 
         if (removeFolderItself && (!folder.isHidden() || deleteHidden)) {
-            if (! isMatchingIgnorePattern(folder.toString())) {
-                amountDeleted[0]    += folder.delete() ? 1:0;
+            if (!isMatchingIgnorePattern(folder.toString())) {
+                amountDeleted[0] += folder.delete() ? 1:0;
             }
         }
 

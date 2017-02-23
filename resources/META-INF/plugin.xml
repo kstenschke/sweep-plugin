@@ -30,8 +30,8 @@
     <ul>
         <li>1.2.1
             <ul>
-                <li>Improved UI (Settings)</li>
-                <li>Bugfix: Made sweeping non-recursive (was sweeping contents of sub-directories by default)</li>
+                <li>UI (Settings) and code cleanup, stability improvements: tested and fixed edge cases</li>
+                <li>Bugfix: Sweeping was including contents of sub-directories</li>
             </ul>
         </li>
         <li>1.2.0 Added refresh of project tree after sweeping</li>

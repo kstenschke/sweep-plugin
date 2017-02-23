@@ -47,8 +47,6 @@ public class SweepConfigurable implements Configurable {
             settingsPanel = new SweepConfiguration();
         }
 
-//        reset();
-
         return settingsPanel.getRootPanel();
     }
 
@@ -78,9 +76,7 @@ public class SweepConfigurable implements Configurable {
 
     @Override
     public void reset() {
-//        if (settingsPanel != null ) {
-//
-//        }
+
     }
 
     public void disposeUIResources() {

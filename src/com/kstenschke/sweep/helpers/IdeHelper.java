@@ -27,7 +27,7 @@ public class IdeHelper {
     public static Project getOpenProject() {
         Project[] projects = ProjectManager.getInstance().getOpenProjects();
 
-        return (projects.length > 0) ? projects[0] : null;
+        return projects.length > 0 ? projects[0] : null;
     }
 
 }
