@@ -13,6 +13,11 @@ The plugin adds a button to the main toolbar, which allows to quickly sweep sele
 * Specific files/directories can be excluded from deletion using ignore-patterns
 
 
+h2. Keyboard-shortcut
+
+A keyboard shortcut can be assigned under Preferences > Keymap > Plugins > Sweep > Sweep Files
+
+
 h2. Please note
 
 The plugin is a tool for deleting configured directories and files located within your project, it is NOT a shortcut to remotely evoke clearing the cache of a specific browser or other application.

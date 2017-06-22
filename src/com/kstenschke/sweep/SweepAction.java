@@ -73,7 +73,7 @@ public class SweepAction extends AnAction {
     /**
      * Remove contents of given directories
      *
-     * @param  sweepPaths        Directory paths to be sweeped, from properties component preferences
+     * @param  sweepPaths        Directory paths to be swept, from properties component preferences
      * @return Array of integers: amount of deleted 1. folders, 2. files
      */
     private Integer[] sweepFoldersContent(String[] sweepPaths) {
@@ -147,10 +147,8 @@ public class SweepAction extends AnAction {
             }
         }
 
-        if (removeFolderItself && (!folder.isHidden() || deleteHidden)) {
-            if (!isMatchingIgnorePattern(folder.toString())) {
-                amountDeleted[0] += folder.delete() ? 1:0;
-            }
+        if (removeFolderItself && (!folder.isHidden() || deleteHidden) && !isMatchingIgnorePattern(folder.toString())) {
+            amountDeleted[0] += folder.delete() ? 1:0;
         }
 
         return amountDeleted;

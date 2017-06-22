@@ -16,10 +16,10 @@
 
 package com.kstenschke.sweep;
 
+import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.project.Project;
 import com.kstenschke.sweep.helpers.IdeHelper;
 import org.jetbrains.annotations.NonNls;
-import com.intellij.ide.util.PropertiesComponent;
 
 /**
  * Utility functions for preferences handling
@@ -115,7 +115,7 @@ public class SweepPreferences {
 
         if (propertiesComponent != null) {
             String pref = propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES);
-            delete = pref != null && pref.equals("1");
+            delete = pref != null && "1".equals(pref);
         }
 
         return delete;
@@ -132,7 +132,7 @@ public class SweepPreferences {
 
         if (propertiesComponent != null) {
             String pref = propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN);
-            delete = pref != null && pref.equals("1");
+            delete = pref != null && "1".equals(pref);
         }
 
         return delete;

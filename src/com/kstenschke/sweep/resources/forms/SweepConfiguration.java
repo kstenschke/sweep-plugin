@@ -30,7 +30,9 @@ import com.kstenschke.sweep.helpers.SelectedDirectoriesCollector;
 import javax.swing.*;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Arrays;
 
 public class SweepConfiguration {
