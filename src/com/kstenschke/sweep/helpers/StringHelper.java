@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2017 Kay Stenschke
+ * Copyright 2013-2018 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,11 +54,6 @@ public class StringHelper {
         return trailMustExist ? null : sourceStr;
     }
 
-    /**
-     * @param sourceStr
-     * @param trailChar
-     * @return
-     */
     private static String removePostfixChar(String sourceStr, String trailChar) {
         return removePostfixChar(sourceStr, trailChar, true);
     }
@@ -70,34 +65,32 @@ public class StringHelper {
     public static String[] extractTreePathStringsFromPref(String treePathsPrefStr) {
         treePathsPrefStr = StringHelper.removePrefixChar(treePathsPrefStr, "[");
         treePathsPrefStr = StringHelper.removePostfixChar(treePathsPrefStr, "]");
-
-        if (treePathsPrefStr != null) {
-            if (treePathsPrefStr.contains("],")) {
-                // There are multiple TreePath strings contained
-                String[] treePathStrings = treePathsPrefStr.split("\\]");
-                Integer count = 0;
-                for (String curTreePath: treePathStrings) {
-                    curTreePath = StringHelper.removePrefixChar(curTreePath, ",", false);
-                    curTreePath = StringHelper.removePrefixChar(curTreePath, " ", false);
-                    curTreePath = StringHelper.removePrefixChar(curTreePath, "[");
-                    curTreePath = curTreePath.replaceAll(", ", "\\/");
-
-                    treePathStrings[count] = curTreePath;
-                    count++;
-                }
-
-                return treePathStrings;
-            }
-
-            // There's only one TreePath string contained
-            treePathsPrefStr = StringHelper.removePrefixChar(treePathsPrefStr, "[");
-            treePathsPrefStr = StringHelper.removePostfixChar(treePathsPrefStr, "]");
-            treePathsPrefStr = treePathsPrefStr.replaceAll(", ", "\\/");
-
-            return treePathsPrefStr == null ? null : new String[] { treePathsPrefStr };
+        if (treePathsPrefStr == null) {
+            return null;
         }
 
-        return null;
-    }
+        if (treePathsPrefStr.contains("],")) {
+            // There are multiple TreePath strings contained
+            String[] treePathStrings = treePathsPrefStr.split("\\]");
+            int count = 0;
+            for (String curTreePath: treePathStrings) {
+                curTreePath = StringHelper.removePrefixChar(curTreePath, ",", false);
+                curTreePath = StringHelper.removePrefixChar(curTreePath, " ", false);
+                curTreePath = StringHelper.removePrefixChar(curTreePath, "[");
+                curTreePath = curTreePath.replaceAll(", ", "\\/");
 
+                treePathStrings[count] = curTreePath;
+                count++;
+            }
+
+            return treePathStrings;
+        }
+
+        // There's only one TreePath string contained
+        treePathsPrefStr = StringHelper.removePrefixChar(treePathsPrefStr, "[");
+        treePathsPrefStr = StringHelper.removePostfixChar(treePathsPrefStr, "]");
+        treePathsPrefStr = treePathsPrefStr.replaceAll(", ", "\\/");
+
+        return new String[] { treePathsPrefStr };
+    }
 }

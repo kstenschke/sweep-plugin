@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2017 Kay Stenschke
+ * Copyright 2013-2018 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class SelectedDirectoriesCollector {
      */
     public SelectedDirectoriesCollector(VirtualFile baseDir) {
         this.baseDir = baseDir;
-        selectedVFDirectories = new ArrayList<VirtualFile>();
+        selectedVFDirectories = new ArrayList<>();
     }
 
     /**
@@ -44,21 +44,21 @@ public class SelectedDirectoriesCollector {
      */
     public VirtualFile[] getSelectedVFDirectories() {
         String selectionPathsPrefString =  SweepPreferences.getPaths();
+        if (selectionPathsPrefString.isEmpty()) {
+            return null;
+        }
 
-        if (! selectionPathsPrefString.isEmpty()) {
-            selectionPathStrings = StringHelper.extractTreePathStringsFromPref(selectionPathsPrefString);
+        selectionPathStrings = StringHelper.extractTreePathStringsFromPref(selectionPathsPrefString);
+        if (selectionPathStrings != null && selectionPathStrings.length > 0) {
+            String curPath = baseDir.getPath();
+            if (Arrays.asList(selectionPathStrings).contains(curPath)) {
+                selectedVFDirectories.add(baseDir);
+            }
 
-            if (selectionPathStrings != null && selectionPathStrings.length > 0) {
-                String curPath = baseDir.getPath();
-                if (Arrays.asList(selectionPathStrings).contains(curPath)) {
-                    selectedVFDirectories.add(baseDir);
-                }
+            this.findSelectedSubDirectories(baseDir);
 
-                this.findSelectedSubDirectories(baseDir);
-
-                if (selectedVFDirectories != null && selectedVFDirectories.size() > 0) {
-                    return selectedVFDirectories.toArray(new VirtualFile[selectedVFDirectories.size()]);
-                }
+            if (selectedVFDirectories.size() > 0) {
+                return selectedVFDirectories.toArray(new VirtualFile[selectedVFDirectories.size()]);
             }
         }
 

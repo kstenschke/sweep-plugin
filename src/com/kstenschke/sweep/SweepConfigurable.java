@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2017 Kay Stenschke
+ * Copyright 2013-2018 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -82,5 +82,4 @@ public class SweepConfigurable implements Configurable {
     public void disposeUIResources() {
         settingsPanel = null;
     }
-
 }

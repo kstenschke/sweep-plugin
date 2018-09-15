@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2017 Kay Stenschke
+ * Copyright 2013-2018 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -103,12 +103,9 @@ public class SweepConfiguration {
             }
 
             // Setup changeListener on checkboxes- checking delete hidden checks also delete directories
-            hiddenFilesAndDirectoriesCheckBox.addItemListener(new ItemListener() {
-                @Override
-                public void itemStateChanged(ItemEvent e) {
-                    if (e.getStateChange() == ItemEvent.SELECTED) {
-                        directoriesCheckBox.setSelected(true);
-                    }
+            hiddenFilesAndDirectoriesCheckBox.addItemListener(e -> {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    directoriesCheckBox.setSelected(true);
                 }
             });
         }
@@ -118,7 +115,6 @@ public class SweepConfiguration {
      * Reset the form to factory default
      */
     private void onClickReset(ActionEvent e) {
-
     }
 
     public JPanel getRootPanel() {
@@ -162,7 +158,6 @@ public class SweepConfiguration {
     }
 
     public void setData() {
-
     }
 
     /**
@@ -178,6 +173,5 @@ public class SweepConfiguration {
 
    private void createUIComponents() {
         // @todo    place custom component creation code here
-    }
-
+   }
 }

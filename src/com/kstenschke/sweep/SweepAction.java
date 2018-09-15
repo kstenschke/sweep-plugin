@@ -1,5 +1,5 @@
 /*
-* Copyright 2013-2017 Kay Stenschke
+* Copyright 2013-2018 Kay Stenschke
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -121,7 +121,7 @@ public class SweepAction extends AnAction {
      */
     private Integer[] deleteFolderContents(String path, Boolean removeFolderItself, Boolean deleteHidden) {
         Integer[] amountDeleted = {0, 0};
-        Boolean deleteSubFolders= (removeFolderItself || deleteHidden) ? true : SweepPreferences.getDeleteDirectories();
+        boolean deleteSubFolders= (removeFolderItself || deleteHidden) ? true : SweepPreferences.getDeleteDirectories();
 
         File folder = new File(path);
         if (folder.exists()) {
@@ -153,5 +153,4 @@ public class SweepAction extends AnAction {
 
         return amountDeleted;
     }
-
 }

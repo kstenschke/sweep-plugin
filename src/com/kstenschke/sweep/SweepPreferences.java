@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2017 Kay Stenschke
+ * Copyright 2013-2018 Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -54,7 +54,7 @@ public class SweepPreferences {
      *
      * @param paths	Contents to be stored in paths preference
      */
-    public static void savePaths(String paths) {
+    static void savePaths(String paths) {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
 
         if (propertiesComponent != null) {
@@ -67,7 +67,7 @@ public class SweepPreferences {
      *
      * @param delete
      */
-    public static void saveDeleteDirectories(Boolean delete) {
+    static void saveDeleteDirectories(Boolean delete) {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
 
         if (propertiesComponent != null) {
@@ -80,7 +80,7 @@ public class SweepPreferences {
      *
      * @param delete
      */
-    public static void saveDeleteHidden(Boolean delete) {
+    static void saveDeleteHidden(Boolean delete) {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
 
         if (propertiesComponent != null) {
@@ -95,11 +95,11 @@ public class SweepPreferences {
      */
     public static String getPaths() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
-        String paths = null;
-
-        if (propertiesComponent != null) {
-            paths = propertiesComponent.getValue(PROPERTY_PATHS);
+        if (propertiesComponent == null) {
+            return "";
         }
+
+        String paths = propertiesComponent.getValue(PROPERTY_PATHS);
 
         return paths == null ? "" : paths;
     }
@@ -111,14 +111,8 @@ public class SweepPreferences {
      */
     public static Boolean getDeleteDirectories() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
-        Boolean delete = false;
 
-        if (propertiesComponent != null) {
-            String pref = propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES);
-            delete = pref != null && "1".equals(pref);
-        }
-
-        return delete;
+        return propertiesComponent != null && "1".equals(propertiesComponent.getValue(PROPERTY_DELETE_DIRECTORIES));
     }
 
     /**
@@ -128,14 +122,8 @@ public class SweepPreferences {
      */
     public static Boolean getDeleteHidden() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
-        Boolean delete = false;
 
-        if (propertiesComponent != null) {
-            String pref = propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN);
-            delete = pref != null && "1".equals(pref);
-        }
-
-        return delete;
+        return propertiesComponent != null && "1".equals(propertiesComponent.getValue(PROPERTY_DELETE_HIDDEN));
     }
 
     /**
@@ -145,14 +133,13 @@ public class SweepPreferences {
      */
     public static String getIgnorePatterns() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
-        String ignorePatterns = "";
-
         if (propertiesComponent != null) {
-            String pref    = propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
-            ignorePatterns = pref != null ? pref : "";
+            return "";
         }
 
-        return ignorePatterns;
+        String pref    = propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
+
+        return pref != null ? pref : "";
     }
 
     /**
@@ -160,12 +147,11 @@ public class SweepPreferences {
      *
      * @param ignorePatterns
      */
-    public static void saveIgnorePatterns(String ignorePatterns) {
+    static void saveIgnorePatterns(String ignorePatterns) {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
 
         if (propertiesComponent != null) {
             propertiesComponent.setValue(PROPERTY_IGNORE_PATTERNS, ignorePatterns);
         }
     }
-
 }
