@@ -79,8 +79,6 @@ public class SweepConfiguration {
             if (project != null) {
                 VirtualFile baseDir = project.getBaseDir();
                 descriptor.setRoots(baseDir);
-//            descriptor.setIsTreeRootVisible(true);
-
                 FileSystemTree tree = treeFactory.createFileSystemTree(project, descriptor);
 
                 // Enable multi-selection

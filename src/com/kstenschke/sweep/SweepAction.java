@@ -127,12 +127,12 @@ public class SweepAction extends AnAction {
         if (folder.exists()) {
             File[] files= folder.listFiles();
             if (files != null) {
-                // some JVMs return null for empty directories
+                // Some JVMs return null for empty directories
                 for (File curFile: files) {
                     if (!isMatchingIgnorePattern(curFile.toString()) && (!curFile.isHidden() || deleteHidden)) {
                         if (curFile.isDirectory()) {
                             if (deleteSubFolders) {
-                                // sweep contents of sub directory, than sub-directory itself
+                                // Sweep contents of sub directory, than sub-directory itself
                                 Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), true, true);
                                 amountDeleted[0] += addAmountDeleted[0];
                                 amountDeleted[1] += addAmountDeleted[1];
