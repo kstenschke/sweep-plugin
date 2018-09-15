@@ -136,10 +136,12 @@ public class SweepPreferences {
         if (propertiesComponent != null) {
             return "";
         }
-
-        String pref    = propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
-
-        return pref != null ? pref : "";
+        try {
+            String pref = propertiesComponent.getValue(PROPERTY_IGNORE_PATTERNS);
+            return pref != null ? pref : "";
+        } catch (NullPointerException e) {
+            return "";
+        }
     }
 
     /**

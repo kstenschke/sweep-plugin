@@ -1,5 +1,8 @@
 Sweep Plugin - Changelog
 
+* 1.3.0
+    ** Updated to flat icon suiting modernized IDE theme
+    ** Code cleanup and modernization
 * 1.2.1
     ** UI (Settings) and code cleanup, stability improvements: tested and fixed edge cases
     ** Bugfix: Made sweeping by default non-recursive (was sweeping sub-directories by default)

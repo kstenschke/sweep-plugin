@@ -24,10 +24,14 @@
     <br/>The icons used in this plugin are part of the Fugue iconset (http://p.yusukekamiyamane.com/)
   ]]></description>
     <vendor url="" email="info@stenschke.com">Kay Stenschke</vendor>
-    <version>1.2.1</version>
-
+    <version>1.3.0</version>
     <change-notes><![CDATA[
     <ul>
+        <li>1.3.0
+           <ul>
+                <li>Updated to flat icon suiting modernized IDE theme</li>
+                <li>Code cleanup and modernization</li>
+           </ul>
         <li>1.2.1
             <ul>
                 <li>UI (Settings) and code cleanup, stability improvements: tested and fixed edge cases</li>
@@ -35,36 +39,21 @@
             </ul>
         </li>
         <li>1.2.0 Added refresh of project tree after sweeping</li>
-        <li>1.1.1 Made OpenApi >= 2016.1 compatible (separated ProjectComponent and Configurable)</li>
-        <li>1.1.0
-            <ul>
-                <li>Made notices darcula compatible</li>
-                <li>General code cleanup and updates</li>
-                <li>Changed plugin name to "Sweep"</li>
-            </ul>
-        </li>
-        <li>1.0.2 Extended settings with "ignore pattern" to exclude files/folders containing it, from deletion</li>
     </ul>
   ]]></change-notes>
-
     <!-- see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
     <idea-version since-build="8000"/>
-
     <depends>com.intellij.modules.lang</depends>
-
     <application-components>
         <component>
             <implementation-class>com.kstenschke.sweep.SweepSettings</implementation-class>
             <interface-class>com.kstenschke.sweep.SweepSettings</interface-class>
         </component>
     </application-components>
-
     <project-components/>
-
     <extensions defaultExtensionNs="com.intellij">
         <applicationConfigurable id="Sweep" displayName="Sweep" instance="com.kstenschke.sweep.SweepConfigurable"/>
     </extensions>
-
     <actions>
         <action id="Sweep"
                 class="com.kstenschke.sweep.SweepAction"
@@ -74,5 +63,4 @@
             <add-to-group group-id="MainToolBar" anchor="after" relative-to-action="Synchronize"/>
         </action>
     </actions>
-
 </idea-plugin>
