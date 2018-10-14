@@ -98,12 +98,13 @@ public class SweepAction extends AnAction {
         if (this.ignorePatterns == null ) {
             this.ignorePatterns = SweepPreferences.getIgnorePatterns().split(",");
         }
+        if (this.ignorePatterns.length == 0) {
+            return false;
+        }
 
-        if (this.ignorePatterns.length > 0) {
-            for (String ignorePattern : this.ignorePatterns) {
-                if (ignorePattern.length() > 0 && str.contains(ignorePattern)) {
-                    return true;
-                }
+        for (String ignorePattern : this.ignorePatterns) {
+            if (ignorePattern.length() > 0 && str.contains(ignorePattern)) {
+                return true;
             }
         }
 
@@ -124,31 +125,36 @@ public class SweepAction extends AnAction {
         boolean deleteSubFolders= (removeFolderItself || deleteHidden) ? true : SweepPreferences.getDeleteDirectories();
 
         File folder = new File(path);
-        if (folder.exists()) {
-            File[] files= folder.listFiles();
-            if (files != null) {
-                // Some JVMs return null for empty directories
-                for (File curFile: files) {
-                    if (!isMatchingIgnorePattern(curFile.toString()) && (!curFile.isHidden() || deleteHidden)) {
-                        if (curFile.isDirectory()) {
-                            if (deleteSubFolders) {
-                                // Sweep contents of sub directory, than sub-directory itself
-                                Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), true, true);
-                                amountDeleted[0] += addAmountDeleted[0];
-                                amountDeleted[1] += addAmountDeleted[1];
-                            }
-                        } else {
-                            // attempt delete file
-                            boolean isDeleted = curFile.delete();
-                            amountDeleted[1] += isDeleted ? 1 : 0;
-                        }
+        if (!folder.exists()) {
+            return 0;
+        }
+
+        File[] files       = folder.listFiles();
+        boolean removePath = null != files && (removeFolderItself && (!folder.isHidden() || deleteHidden) && !isMatchingIgnorePattern(folder.toString()));
+        if (null == files) {
+            return removePath ? (folder.delete() ? 1 : 0) : 0;
+        }
+
+        // Some JVMs return null for empty directories
+        for (File curFile: files) {
+            if (!isMatchingIgnorePattern(curFile.toString()) && (!curFile.isHidden() || deleteHidden)) {
+                if (curFile.isDirectory()) {
+                    if (deleteSubFolders) {
+                        // Sweep contents of sub directory, than sub-directory itself
+                        Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), true, true);
+                        amountDeleted[0] += addAmountDeleted[0];
+                        amountDeleted[1] += addAmountDeleted[1];
                     }
+                } else {
+                    // attempt delete file
+                    boolean isDeleted = curFile.delete();
+                    amountDeleted[1] += isDeleted ? 1 : 0;
                 }
             }
         }
 
-        if (removeFolderItself && (!folder.isHidden() || deleteHidden) && !isMatchingIgnorePattern(folder.toString())) {
-            amountDeleted[0] += folder.delete() ? 1:0;
+        if (removePath) {
+            amountDeleted[0] += folder.delete() ? 1 : 0;
         }
 
         return amountDeleted;
