@@ -126,13 +126,13 @@ public class SweepAction extends AnAction {
 
         File folder = new File(path);
         if (!folder.exists()) {
-            return 0;
+            return amountDeleted;
         }
 
         File[] files       = folder.listFiles();
         boolean removePath = null != files && (removeFolderItself && (!folder.isHidden() || deleteHidden) && !isMatchingIgnorePattern(folder.toString()));
         if (null == files) {
-            return removePath ? (folder.delete() ? 1 : 0) : 0;
+            return removePath ? (folder.delete() ? {1, 0} : amountDeleted) : amountDeleted;
         }
 
         // Some JVMs return null for empty directories
