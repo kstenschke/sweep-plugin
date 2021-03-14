@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2018 Kay Stenschke
+ * Copyright Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ import org.jetbrains.annotations.NonNls;
  */
 public class SweepPreferences {
 
-    // @NonNls = element is not a string requiring internationalization and it does not contain such strings.
+    /* @NonNls = element is not a string requiring internationalization and it does not contain such strings. */
     @NonNls
     private static final String PROPERTY_PATHS = "PluginSweep.Paths";
 
@@ -62,11 +62,6 @@ public class SweepPreferences {
         }
     }
 
-    /**
-     * Store preference: delete directories?
-     *
-     * @param delete
-     */
     static void saveDeleteDirectories(Boolean delete) {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
 
@@ -89,9 +84,7 @@ public class SweepPreferences {
     }
 
     /**
-     * Get preference: paths of directories to be swept
-     *
-     * @return String
+     * @return String   Paths of directories to be swept
      */
     public static String getPaths() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
@@ -105,9 +98,7 @@ public class SweepPreferences {
     }
 
     /**
-     * Get preference: delete directories?
-     *
-     * @return Boolean
+     * @return Boolean  Delete directories?
      */
     public static Boolean getDeleteDirectories() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
@@ -116,9 +107,7 @@ public class SweepPreferences {
     }
 
     /**
-     * Get preference: delete hidden directories and files?
-     *
-     * @return Boolean
+     * @return Boolean  Delete hidden directories and files?
      */
     public static Boolean getDeleteHidden() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
@@ -127,9 +116,7 @@ public class SweepPreferences {
     }
 
     /**
-     * Get preference: Ignore patterns
-     *
-     * @return String
+     * @return String   Ignore patterns
      */
     public static String getIgnorePatterns() {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
@@ -144,11 +131,6 @@ public class SweepPreferences {
         }
     }
 
-    /**
-     * Store preference: ignorePatterns
-     *
-     * @param ignorePatterns
-     */
     static void saveIgnorePatterns(String ignorePatterns) {
         PropertiesComponent propertiesComponent = getPropertiesComponent();
 

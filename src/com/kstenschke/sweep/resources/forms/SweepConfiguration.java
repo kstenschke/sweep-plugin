@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2018 Kay Stenschke
+ * Copyright Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,22 +38,13 @@ import java.util.Arrays;
 public class SweepConfiguration {
 
     private JPanel rootPanel;
-
     private JPanel TopPanel;
-
     private JCheckBox filesCheckBox;
-
     private JCheckBox directoriesCheckBox;
-
     private JCheckBox hiddenFilesAndDirectoriesCheckBox;
-
     private JTextField textFieldIgnorePatterns;
-
     private JTree projectTree;
 
-    /**
-     * Constructor
-     */
     public SweepConfiguration() {
         InitForm();
     }
@@ -62,13 +53,13 @@ public class SweepConfiguration {
      * Initialize the form: render project tree, select nodes from project preference
      */
     private void InitForm() {
-        // Init checkbox options' states
+        /* Init checkbox options' states */
         directoriesCheckBox.setSelected(SweepPreferences.getDeleteDirectories());
         hiddenFilesAndDirectoriesCheckBox.setSelected(SweepPreferences.getDeleteHidden());
 
         textFieldIgnorePatterns.setText(SweepPreferences.getIgnorePatterns());
 
-        // Add project files tree, select directories from user's project preference
+        /* Add project files tree, select directories from user's project preference */
         FileSystemTreeFactory treeFactory = new FileSystemTreeFactoryImpl();
         FileChooserDescriptor descriptor =  new FileChooserDescriptor(false, true, false, false,false,false);
 
@@ -81,11 +72,11 @@ public class SweepConfiguration {
                 descriptor.setRoots(baseDir);
                 FileSystemTree tree = treeFactory.createFileSystemTree(project, descriptor);
 
-                // Enable multi-selection
+                /* Enable multi-selection */
                 projectTree = tree.getTree();
                 projectTree.getSelectionModel().setSelectionMode(TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION);
 
-                // Find+select directories in project file-tree, that are contained in preference also
+                /* Find+select directories in project file-tree, that are contained in preference also */
                 SelectedDirectoriesCollector selFilesCollector = new SelectedDirectoriesCollector(baseDir);
                 VirtualFile[] selectedDirectories = selFilesCollector.getSelectedVFDirectories();
 
@@ -95,12 +86,12 @@ public class SweepConfiguration {
 
                 tree.updateTree();
 
-                // Add project folders tree to settings component
+                /* Add project folders tree to settings component */
                 JBScrollPane jbScrollPane = new JBScrollPane(projectTree);
                 rootPanel.add(jbScrollPane);
             }
 
-            // Setup changeListener on checkboxes- checking delete hidden checks also delete directories
+            /* Setup changeListener on checkboxes- checking delete hidden checks also delete directories */
             hiddenFilesAndDirectoriesCheckBox.addItemListener(e -> {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     directoriesCheckBox.setSelected(true);
@@ -120,9 +111,7 @@ public class SweepConfiguration {
     }
 
     /**
-     * Config modified?
-     *
-     * @return Boolean
+     * @return Boolean  Config modified?
     */
     public boolean isModified() {
         return ! (
@@ -141,9 +130,6 @@ public class SweepConfiguration {
         return hiddenFilesAndDirectoriesCheckBox.isSelected();
     }
 
-    /**
-     * @return  Ignore patterns
-     */
     public String getIgnorePatterns() {
         return textFieldIgnorePatterns.getText();
     }
@@ -159,9 +145,7 @@ public class SweepConfiguration {
     }
 
     /**
-     * Get selection paths
-     *
-     * @return  String
+     * @return  String      Selection paths
      */
     public String getData() {
         TreePath[] selectionPaths  = projectTree.getSelectionModel().getSelectionPaths();
@@ -170,6 +154,6 @@ public class SweepConfiguration {
     }
 
    private void createUIComponents() {
-        // @todo    place custom component creation code here
+        /* @todo    place custom component creation code here */
    }
 }

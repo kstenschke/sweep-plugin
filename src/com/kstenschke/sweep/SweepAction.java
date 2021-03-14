@@ -1,5 +1,5 @@
 /*
-* Copyright 2013-2018 Kay Stenschke
+* Copyright Kay Stenschke
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -129,24 +129,32 @@ public class SweepAction extends AnAction {
             return amountDeleted;
         }
 
-        File[] files       = folder.listFiles();
-        boolean removePath = null != files && (removeFolderItself && (!folder.isHidden() || deleteHidden) && !isMatchingIgnorePattern(folder.toString()));
+        File[] files = folder.listFiles();
+        boolean removePath = null != files
+                && (
+                removeFolderItself
+                        && (!folder.isHidden() || deleteHidden)
+                        && !isMatchingIgnorePattern(folder.toString())
+        );
+
         if (null == files) {
-            return removePath ? (folder.delete() ? {1, 0} : amountDeleted) : amountDeleted;
+//            if (removePath) {
+//                return folder.delete() ? {1, 0} : amountDeleted;
+//            }
+            return amountDeleted;
         }
 
-        // Some JVMs return null for empty directories
+        /* Some JVMs return null for empty directories */
         for (File curFile: files) {
             if (!isMatchingIgnorePattern(curFile.toString()) && (!curFile.isHidden() || deleteHidden)) {
                 if (curFile.isDirectory()) {
                     if (deleteSubFolders) {
-                        // Sweep contents of sub directory, than sub-directory itself
+                        /* Sweep contents of sub directory, than sub-directory itself */
                         Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), true, true);
                         amountDeleted[0] += addAmountDeleted[0];
                         amountDeleted[1] += addAmountDeleted[1];
                     }
-                } else {
-                    // attempt delete file
+                } else {    /* attempt delete file */
                     boolean isDeleted = curFile.delete();
                     amountDeleted[1] += isDeleted ? 1 : 0;
                 }

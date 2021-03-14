@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2018 Kay Stenschke
+ * Copyright Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -76,7 +76,6 @@ public class SweepConfigurable implements Configurable {
 
     @Override
     public void reset() {
-
     }
 
     public void disposeUIResources() {

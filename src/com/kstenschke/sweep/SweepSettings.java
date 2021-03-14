@@ -1,5 +1,5 @@
 /*
- * Copyright 2013-2018 Kay Stenschke
+ * Copyright Kay Stenschke
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,9 +30,6 @@ public class SweepSettings implements ApplicationComponent {
 
     private ImageIcon icon = new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png");
 
-    /**
-     * Constructor
-     */
     public SweepSettings() {
         this.settingsPanel = new SweepConfiguration();
     }
@@ -45,19 +42,15 @@ public class SweepSettings implements ApplicationComponent {
      * Get the icon of this {@link Configurable}.
      */
     public Icon getIcon() {
-        if (icon == null) {
-            icon = new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png");
-        }
-
-        return icon;
+        return icon == null
+            ? new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png")
+            : icon;
     }
 
    public void initComponent() {
-
     }
 
     public void disposeComponent() {
-
     }
 
     @NotNull
