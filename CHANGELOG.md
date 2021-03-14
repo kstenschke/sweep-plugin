@@ -1,6 +1,7 @@
 # Sweep Plugin - Changelog
 
-**1.3.1 - Not tagged yet**
+**1.3.1 - 2021-03-14**
+* Add plugin logo
 * Change README and CHANGELOG format from textile to markdown
 * Add release dates to changelog
 * Add TOC to README

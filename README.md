@@ -14,11 +14,11 @@ AppCode, CLion, Gogland, DataGrip, Rider and Android Studio.
 ## What does it do?
 
 Adds a shortcut to quickly delete files and directories from configured paths within your project.
-The plugin adds a button into the main toolbar, and allows to setup a related keyboard shortcut.
+The plugin adds a button into the main toolbar and allows to setup a related keyboard shortcut.
 
-The configuration allows to setup (within the project settings) shortcuts for deletion of:
+The configuration (Settings &gt; Other Settings &gt; Sweep) allows to setup options for recursive deletion of:
 
-* One or more folders of temporary files within the project
+* One or more folders of temporary files within your project
 * Removal of hidden files and directories can be de/activated
 * Specific files/directories can be excluded from deletion using ignore-patterns
 
@@ -37,7 +37,8 @@ This plugin is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS
 
 ## Third Party Credits
 
-Icon made by Freepik from www.flaticon.com
+IDE button icon made by Freepik from www.flaticon.com  
+The plugin is based on a free icon from `Cleaning Icon Set` by https://www.wishforge.games 
 
 
 ## Changelog

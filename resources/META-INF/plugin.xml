@@ -17,10 +17,10 @@
     <name>Sweep</name>
     <description><![CDATA[
     The plugin adds a shortcut for deleting files and directories from configured paths within your project.<br/>
-    The plugin adds a button into the main toolbar, and allows to setup a related keyboard shortcut.<br/>
+    The plugin adds a button into the main toolbar and allows to setup a related keyboard shortcut.<br/>
     <br/>
-    The configuration allows to setup (within the project settings) shortcuts for deletion of:<br/>
-    <br/>
+    The configuration (Settings &gt; Other Settings &gt; Sweep) allows to setup options for recursive deletion of:
+    <br/><br/>
     <ul>
       <li>One or more folders of temporary files within the project<li>
       <li>Removal of hidden files and directories can be de/activated</li>
@@ -35,27 +35,35 @@
     <vendor url="" email="info@stenschke.com">Kay Stenschke</vendor>
     <version>1.3.1</version>
     <change-notes><![CDATA[
-    <strong>1.3.1</strong>
+    <strong>1.3.1 - 2021-03-14</strong>
     <ul>
+        <li>Add plugin logo</li>
         <li>Change README and CHANGELOG format from textile to markdown</li>
         <li>Add release dates to changelog</li>
         <li>Add TOC to README</li>
         <li>Some code cleanup and modernization</li>
     </ul>
-    <strong>1.3.0</strong>
+    <strong>1.3.0 - 2018-09-15</strong>
     <ul>
         <li>Updated to flat icon suiting modernized IDE theme</li>
         <li>Code cleanup and modernization</li>
    </ul>
-   <strong>1.2.1</strong>
+   <strong>1.2.1 - 2017-02-23</strong>
     <ul>
         <li>UI (Settings) and code cleanup, stability improvements: tested and fixed edge cases</li>
         <li>Bugfix: Sweeping was including contents of sub-directories</li>
     </ul>
-    <strong>1.2.0</strong>
+    <strong>1.2.0 - 2017-02-10</strong>
     <ul>
         <li>Added refresh of project tree after sweeping</li>
     </ul>
+    <strong>1.1.1 - 2017-02-03</strong>
+    <ul>
+        <li>Made OpenApi >= 2016.1 compatible (separated ProjectComponent and Configurable)</li>
+    </ul><br/>
+  <a href="https://github.com/kstenschke/sweep-plugin/blob/master/CHANGELOG.md" target="_blank">
+    ...Read full changelog on github
+  </a>
   ]]></change-notes>
     <!-- see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html -->
     <idea-version since-build="13.17"/>
