@@ -1,6 +1,6 @@
 # Sweep Plugin
 
-Source code of the intellij IDEA "Sweep plugin":https://plugins.jetbrains.com/plugin/9434-sweep.
+"Sweep plugin":https://plugins.jetbrains.com/plugin/9434-sweep. for Jetbrains IDEs:  
 This is a plugin for the various Jetbrains IDEs, working in IntelliJ IDEA, PhpStorm, WebStorm, PyCharm, RubyMine, 
 AppCode, CLion, Gogland, DataGrip, Rider and Android Studio.
 
