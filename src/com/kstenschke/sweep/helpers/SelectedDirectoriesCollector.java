@@ -55,7 +55,7 @@ public class SelectedDirectoriesCollector {
             this.findSelectedSubDirectories(baseDir);
 
             if (selectedVFDirectories.size() > 0) {
-                return selectedVFDirectories.toArray(new VirtualFile[selectedVFDirectories.size()]);
+                return selectedVFDirectories.toArray(new VirtualFile[0]);
             }
         }
 

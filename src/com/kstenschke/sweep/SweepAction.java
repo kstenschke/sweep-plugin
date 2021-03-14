@@ -22,9 +22,11 @@ import com.intellij.openapi.ui.popup.Balloon;
 import com.intellij.openapi.ui.popup.BalloonBuilder;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.vfs.VirtualFileManager;
+import com.intellij.ui.Gray;
 import com.intellij.ui.JBColor;
 import com.intellij.ui.awt.RelativePoint;
 import com.kstenschke.sweep.helpers.StringHelper;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,14 +36,11 @@ public class SweepAction extends AnAction {
 
     private String[] ignorePatterns = null;
 
-    /**
-     * @param event    ActionSystem event
-     */
-    public void actionPerformed(AnActionEvent event) {
+    public void actionPerformed(@NotNull AnActionEvent event) {
         String[] sweepPaths = {};
 
         String sweepPathsPrefString = SweepPreferences.getPaths();
-        if (sweepPathsPrefString != null && ! sweepPathsPrefString.isEmpty()) {
+        if (!sweepPathsPrefString.isEmpty()) {
             sweepPaths  = StringHelper.extractTreePathStringsFromPref(sweepPathsPrefString);
         }
 
@@ -53,15 +52,18 @@ public class SweepAction extends AnAction {
             Balloon.Position pos = Balloon.Position.below;
             String balloonText   = "Deleted " + amountDeleted[1] + " files / " + amountDeleted[0] + " directories";
 
-            JBColor backgroundColor = new JBColor(new Color(245, 245, 245), new Color(60, 63, 65));
-            BalloonBuilder builder = JBPopupFactory.getInstance().createHtmlTextBalloonBuilder(balloonText, null, backgroundColor, null);
+            JBColor backgroundColor = new JBColor(Gray._245, new Color(60, 63, 65));
+
+            BalloonBuilder builder = JBPopupFactory.getInstance()
+                    .createHtmlTextBalloonBuilder(balloonText, null, backgroundColor, null);
+
             Balloon balloon = builder.createBalloon();
             balloon.setAnimationEnabled(true);
 
             Component eventComponent = event.getInputEvent().getComponent();
             Point componentLocation = eventComponent.getLocation();
-            Integer    x= new Double(componentLocation.getX()).intValue() + eventComponent.getWidth() + 40;
-            Integer    y= new Double(componentLocation.getY()).intValue() + eventComponent.getHeight() + 42;
+            int x= new Double(componentLocation.getX()).intValue() + eventComponent.getWidth() + 40;
+            int y= new Double(componentLocation.getY()).intValue() + eventComponent.getHeight() + 42;
             RelativePoint balloonPosition = new RelativePoint(new Point(x, y));
 
             balloon.show(balloonPosition, pos);
@@ -122,7 +124,7 @@ public class SweepAction extends AnAction {
      */
     private Integer[] deleteFolderContents(String path, Boolean removeFolderItself, Boolean deleteHidden) {
         Integer[] amountDeleted = {0, 0};
-        boolean deleteSubFolders= (removeFolderItself || deleteHidden) ? true : SweepPreferences.getDeleteDirectories();
+        boolean deleteSubFolders= removeFolderItself || deleteHidden || SweepPreferences.getDeleteDirectories();
 
         File folder = new File(path);
         if (!folder.exists()) {
@@ -146,18 +148,23 @@ public class SweepAction extends AnAction {
 
         /* Some JVMs return null for empty directories */
         for (File curFile: files) {
-            if (!isMatchingIgnorePattern(curFile.toString()) && (!curFile.isHidden() || deleteHidden)) {
-                if (curFile.isDirectory()) {
-                    if (deleteSubFolders) {
-                        /* Sweep contents of sub directory, than sub-directory itself */
-                        Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), true, true);
-                        amountDeleted[0] += addAmountDeleted[0];
-                        amountDeleted[1] += addAmountDeleted[1];
-                    }
-                } else {    /* attempt delete file */
-                    boolean isDeleted = curFile.delete();
-                    amountDeleted[1] += isDeleted ? 1 : 0;
+            if (!(
+                    !isMatchingIgnorePattern(curFile.toString())
+                    && (!curFile.isHidden() || deleteHidden)
+            )) {
+                continue;
+            }
+
+            if (curFile.isDirectory()) {
+                if (deleteSubFolders) {
+                    /* Sweep contents of sub directory, than sub-directory itself */
+                    Integer[] addAmountDeleted = deleteFolderContents(curFile.getPath(), true, true);
+                    amountDeleted[0] += addAmountDeleted[0];
+                    amountDeleted[1] += addAmountDeleted[1];
                 }
+            } else {    /* attempt delete file */
+                boolean isDeleted = curFile.delete();
+                amountDeleted[1] += isDeleted ? 1 : 0;
             }
         }
 

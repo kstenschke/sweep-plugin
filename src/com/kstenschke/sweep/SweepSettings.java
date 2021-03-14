@@ -26,7 +26,7 @@ import javax.swing.*;
 
 public class SweepSettings implements ApplicationComponent {
 
-    public SweepConfiguration settingsPanel = null;
+    public SweepConfiguration settingsPanel;
 
     private ImageIcon icon = new ImageIcon("/com/kstenschke/sweep/resources/icons/broom.png");
 
